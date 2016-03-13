@@ -1,0 +1,67 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<!--<ion-nav-bar>
+	<ion-nav-back-button class="button-clear">
+		<i class="ion-arrow-left-c"></i> Back
+	</ion-nav-back-button>
+</ion-nav-bar>
+<ion-nav-view>-->
+	<ion-view>
+	<ion-nav-title>
+      {{title}}
+    </ion-nav-title>
+	  <ion-content class="padding">
+	  <div class="row">
+		<div class="col text-center" ng-if="routeStep == 0">
+			<h4>Welcome to Imagine Route!</h4>
+			
+			<a class="button button-block button-royal" href="#/tab/routes/{{routeID}}/{{ routeStep + 1 }}">
+				Let's begin!
+			</a>
+		</div>
+		<div class="col text-center" ng-repeat="step in steps" ng-if="routeStep == step.id">
+			<h4>{{step.instructions}}</h4>
+			
+			<div ng-if="step.type == 'photo'">
+				<button class="button icon-left ion-camera button-dark" ng-click="takePicture()">
+					Take Photo
+				</button>
+				<div class="item item-image">
+					<img ng-src="{{lastPhoto}}" style="max-width: 100%">
+				</div>
+				
+				<p>{{lastPhotoURI}}</p>
+			</div>
+			
+			<label class="item item-input" ng-if="step.type == 'word'">
+				<input type="text" placeholder="Type Word">
+			</label>
+			
+			<a class="button button-block button-royal" href="#/tab/routes/{{routeID}}/{{ routeStep + 1 }}">
+				<i class="icon ion-arrow-right-a"></i>
+			</a>
+		</div>
+		<div class="col text-center" ng-if="routeStep > steps.length">
+			<h4>You are now at the end of the route.</h4>
+			<h4>Fine achievement!</h4>
+			
+			<p>How did you like the experience?</p>
+			<div class="item range range-energized">
+			  <i class="icon ion-sad-outline"></i>
+			  <input type="range" name="satisfaction" min="1" max="100" value="50" ng-model="routeSatisfaction">
+			  <i class="icon ion-happy-outline"></i>
+			</div>
+
+			
+			<a class="button button-block button-royal" ng-click="finishRoute()">
+				<i class="icon ion-checkmark-round"></i>
+			</a>
+		</div>
+	  </div>
+	  </ion-content>
+	</ion-view>
+<!--<ion-nav-view>-->
