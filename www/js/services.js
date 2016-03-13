@@ -1,12 +1,5 @@
 var loseYourWayServices = angular.module('loseYourWayServices', [])
-
-/*loseYourWayServices.factory('Route', ['$resource', function($resource) {
-	return $resource('/data/:routeID.json', {}, {
-      query: {method:'GET', params:{routeID:'route'}, isArray:true}
-    });
-}]);*/
-
-loseYourWayServices.factory('Camera', ['$q', function($q) {
+.factory('Camera', ['$q', function($q) {
 
   return {
     getPicture: function(options) {
@@ -22,9 +15,8 @@ loseYourWayServices.factory('Camera', ['$q', function($q) {
       return q.promise;
     }
   }
-}]);
-
-loseYourWayServices.factory('$localstorage', ['$window', function($window) {
+}])
+.factory('$localstorage', ['$window', function($window) {
   return {
     set: function(key, value) {
       $window.localStorage[key] = value;
@@ -40,3 +32,9 @@ loseYourWayServices.factory('$localstorage', ['$window', function($window) {
     }
   }
 }]);
+
+/*loseYourWayServices.factory('Route', ['$resource', function($resource) {
+	return $resource('/data/:routeID.json', {}, {
+      query: {method:'GET', params:{routeID:'route'}, isArray:true}
+    });
+}]);*/

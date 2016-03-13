@@ -1,3 +1,16 @@
+body {
+  height: auto;
+  min-height: 100%;
+}
+
+.scroll, .angular-leaflet-map {
+  height: 100%;
+}
+
+.leaflet-bottom {
+  bottom : 10px;
+}
+
 /* Empty. Add your own CSS if you like */
 
 /*.scroll-content {

@@ -4,11 +4,14 @@
 		Social Inclusion
 	</div>
     <ion-list>
-		<ion-item class="item-icon-right" ng-repeat="route in themes" type="item-text-wrap" href="#/tab/routes/{{route.id}}/0">
+		<ion-item class="item-icon-right" ng-repeat="route in routes" type="item-text-wrap" ng-click="startRoute({{route.id}}, '{{route.name}}')">
 		<h2>{{route.name}}</h2>
 		<i class="icon ion-chevron-right icon-accessory"></i>
 		</ion-item>
 	</ion-list>
+	<div class="item" ng-if="routes.length == 0">
+		All done
+	</div>
 	<div class="item item-divider">
 		Downloaded Routes
 	</div>
@@ -16,11 +19,18 @@
 		<i class="icon ion-search"></i>
 		Find routes...
 		<i class="icon ion-arrow-right-c"></i>
-	</a>  
+	</a>
 	<div class="item item-divider">
-		Experienced Routes
+		Finished Routes
 	</div>
-	<div class="item ">
+	
+	<ion-list>
+		<ion-item class="item-icon-right" ng-repeat="route in finishedRoutes" type="item-text-wrap" ng-click="startRoute({{route.id}}, '{{route.name}}')">
+		<h2>{{route.name}}</h2>
+		<i class="icon ion-chevron-right icon-accessory"></i>
+		</ion-item>
+	</ion-list>
+	<div class="item" ng-if="finishedRoutes.length == 0">
 		None yet
 	</div>
   </ion-content>

@@ -19,7 +19,7 @@
 		<div class="col text-center" ng-if="routeStep == 0">
 			<h4>Welcome to Imagine Route!</h4>
 			
-			<a class="button button-block button-royal" href="#/tab/routes/{{routeID}}/{{ routeStep + 1 }}">
+			<a class="button button-block button-royal" ng-click="nextStep()">
 				Let's begin!
 			</a>
 		</div>
@@ -31,17 +31,17 @@
 					Take Photo
 				</button>
 				<div class="item item-image">
-					<img ng-src="{{lastPhoto}}" style="max-width: 100%">
+					<img ng-src="{{lastPhotoURI}}" style="max-width: 100%">
 				</div>
 				
-				<p>{{lastPhotoURI}}</p>
+				<!--<p>{{lastPhotoURI}}</p>-->
 			</div>
 			
 			<label class="item item-input" ng-if="step.type == 'word'">
-				<input type="text" placeholder="Type Word">
+				<input type="text" placeholder="Type Word" ng-change="wordChange(word)" ng-model="word">
 			</label>
 			
-			<a class="button button-block button-royal" href="#/tab/routes/{{routeID}}/{{ routeStep + 1 }}">
+			<a class="button button-block button-royal" ng-click="nextStep()">
 				<i class="icon ion-arrow-right-a"></i>
 			</a>
 		</div>
@@ -52,7 +52,7 @@
 			<p>How did you like the experience?</p>
 			<div class="item range range-energized">
 			  <i class="icon ion-sad-outline"></i>
-			  <input type="range" name="satisfaction" min="1" max="100" value="50" ng-model="routeSatisfaction">
+			  <input type="range" name="satisfaction" min="1" max="100" value="50" ng-change="routeSatisfactionChange(routeSatisfaction)" ng-model="routeSatisfaction">
 			  <i class="icon ion-happy-outline"></i>
 			</div>
 
