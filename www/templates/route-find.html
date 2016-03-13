@@ -1,0 +1,51 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<!--<ion-nav-bar>
+	<ion-nav-back-button class="button-clear">
+		<i class="ion-arrow-left-c"></i> Back
+	</ion-nav-back-button>
+</ion-nav-bar>
+<ion-nav-view>-->
+	<ion-view>
+	<ion-nav-title>
+      {{title}}
+    </ion-nav-title>
+	  <ion-content class="padding">
+	  <div class="list list-inset">
+		  <label class="item item-input">
+			<i class="icon ion-search placeholder-icon"></i>
+			<input type="text" placeholder="Search by name">
+		  </label>
+	  </div>
+	  <div class="list">
+		  <label class="item item-input item-select">
+			<div class="input-label">
+			  Sort by
+			</div>
+			<select>
+			  <option selected>Name</option>
+			  <option>Theme</option>
+			  <option>Newest</option>
+			</select>
+		  </label>
+
+	  </div>
+	  <div class="item item-divider">
+		Available Routes
+	  </div>
+	  <ion-list>
+		<ion-item class="item-icon-right" ng-repeat="route in routes" type="item-text-wrap" ng-click="">
+		{{route.name}}
+		<i class="icon ion-ios-download-outline icon-accessory"></i>
+		<span class="item-note">
+			{{route.theme}}
+		</span>
+		</ion-item>
+	</ion-list>
+	  </ion-content>
+	</ion-view>
+<!--<ion-nav-view>-->

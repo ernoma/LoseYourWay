@@ -80,6 +80,14 @@ loseYourWayControllers.controller('RoutesCtrl', function($scope, $http, $state, 
 	}
 })
 
+loseYourWayControllers.controller('RouteFindCtrl', function($scope, $http, $state, $stateParams, $localstorage) {
+	$scope.title = "Find Routes";
+	
+	$http.get('data/dummyroutes.json').success(function(data) {
+		$scope.routes = data;
+	});
+})
+
 loseYourWayControllers.controller('RouteDetailCtrl', function($scope, $http, $state, $stateParams, $ionicHistory, Camera, $localstorage) {
 	
 	$scope.savedRoutes = $localstorage.getObject("savedRoutes");

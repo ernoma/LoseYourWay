@@ -63,6 +63,15 @@ loseYourWayApp.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+	.state('tab.route-find', {
+      url: '/routes/find',
+      views: {
+        'tab-routes': {
+          templateUrl: 'templates/route-find.html',
+          controller: 'RouteFindCtrl'
+        }
+      }
+    })
   /*.state('tab.route-step' {
 	url: '/routes/:routeID/:step,
 	views: {

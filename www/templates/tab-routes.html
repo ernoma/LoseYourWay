@@ -1,12 +1,15 @@
 <ion-view view-title="Lose Your Way - Routes">
   <ion-content>
     <div class="item item-divider">
-		Social Inclusion
+		To Explore
 	</div>
     <ion-list>
 		<ion-item class="item-icon-right" ng-repeat="route in routes" type="item-text-wrap" ng-click="startRoute({{route.id}}, '{{route.name}}')">
-		<h2>{{route.name}}</h2>
+		{{route.name}}
 		<i class="icon ion-chevron-right icon-accessory"></i>
+		<span class="item-note">
+			{{route.theme}}
+		</span>
 		</ion-item>
 	</ion-list>
 	<div class="item" ng-if="routes.length == 0">
@@ -15,7 +18,7 @@
 	<div class="item item-divider">
 		Downloaded Routes
 	</div>
-	<a class="item item-icon-left item-icon-right" href="#">
+	<a class="item item-icon-left item-icon-right" href="#/tab/routes/find">
 		<i class="icon ion-search"></i>
 		Find routes...
 		<i class="icon ion-arrow-right-c"></i>
@@ -23,11 +26,13 @@
 	<div class="item item-divider">
 		Finished Routes
 	</div>
-	
 	<ion-list>
 		<ion-item class="item-icon-right" ng-repeat="route in finishedRoutes" type="item-text-wrap" ng-click="startRoute({{route.id}}, '{{route.name}}')">
-		<h2>{{route.name}}</h2>
+		{{route.name}}
 		<i class="icon ion-chevron-right icon-accessory"></i>
+		<span class="item-note">
+			{{route.theme}}
+		</span>
 		</ion-item>
 	</ion-list>
 	<div class="item" ng-if="finishedRoutes.length == 0">
