@@ -1,0 +1,101 @@
+[
+	{
+	"theme": "Social Inclusion",
+	"name": "Imagine",
+	"_id": "1",
+	"created": "2016-02-22T08:00:00Z",
+	"tasks": 
+		[{
+		"_id": "1",
+		"routeStep": 1,
+		"type": "move",
+		"instructions": "Follow the first red moving car and continue in the same direction until you have passed six streetlights."
+		},
+		{
+		"_id": "2",
+		"routeStep": 2,
+		"type": "photo",
+		"instructions": "If you were a graffiti, where would you be painted?"
+		},
+		{
+		"_id": "3",
+		"routeStep": 3,
+		"type": "move",
+		"instructions": "If you were a dark cloud, who passer-by you would follow? Follow the passer-by until you see number five."
+		},
+		{
+		"_id": "4",
+		"routeStep": 4,
+		"type": "word",
+		"instructions": "Write down adjective that describes your environment."
+		},
+		{
+		"_id": "5",
+		"routeStep": 5,
+		"type": "move",
+		"instructions": "If sun is shining continue left, otherwise right. Walk until you see a blue house."
+		},
+		{
+		"_id": "6",
+		"routeStep": 6,
+		"type": "photo",
+		"instructions": "Walk around until you find a gateway to other dimension."
+		},
+		{
+		"_id": "7",
+		"routeStep": 7,
+		"type": "move",
+		"instructions": "Follow the first white dog you see until see someone with a white hat."
+		},
+		{
+		"_id": "8",
+		"routeStep": 8,
+		"type": "word",
+		"instructions": "Write down substantive that describes what you see."
+		},
+		{
+		"_id": "9",
+		"routeStep": 9,
+		"type": "move",
+		"instructions": "Take direction towards civilization. Walk until you see your favorite traffic sign."
+		},
+		{
+		"_id": "10",
+		"routeStep": 10,
+		"type": "photo",
+		"instructions": "Let your nose lead you until you see something flying. Take a scenery photograph."
+		}]
+	},
+	{
+	"theme": "Social Inclusion",
+	"name": "Improve Suburb",
+	"_id": "2",
+	"created": "2016-02-01T08:00:00Z",
+	"tasks": 
+		[]
+	},
+	{
+	"theme": "Social Inclusion",
+	"name": "Be Happy",
+	"_id": "3",
+	"created": "2016-02-22T08:00:00Z",
+	"tasks": 
+		[]
+	},
+	{
+	"theme": "Social Inclusion",
+	"name": "Smile and Greet",
+	"_id": "4",
+	"created": "2016-03-16T08:00:00Z",
+	"tasks": 
+		[]
+	},
+	{
+	"theme": "Social Inclusion",
+	"name": "With Friends",
+	"_id": "5",
+	"created": "2016-01-31T08:00:00Z",
+	"tasks": 
+		[]
+	}
+]

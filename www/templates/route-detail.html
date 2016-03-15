@@ -17,13 +17,13 @@
 	  <ion-content class="padding">
 	  <div class="row">
 		<div class="col text-center" ng-if="routeStep == 0">
-			<h4>Welcome to Imagine Route!</h4>
+			<h4>Welcome to {{name}} Route!</h4>
 			
 			<a class="button button-block button-royal" ng-click="nextStep()">
 				Let's begin!
 			</a>
 		</div>
-		<div class="col text-center" ng-repeat="step in steps" ng-if="routeStep == step.id">
+		<div class="col text-center" ng-repeat="step in steps" ng-if="routeStep == step.routeStep">
 			<h4>{{step.instructions}}</h4>
 			
 			<div ng-if="step.type == 'photo'">

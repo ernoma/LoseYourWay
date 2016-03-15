@@ -1,4 +1,7 @@
 var loseYourWayServices = angular.module('loseYourWayServices', [])
+.factory('Route', function($resource) {
+  return $resource('http://loseyourway.herokuapp.com/routes/:id');
+})
 .factory('Camera', ['$q', function($q) {
 
   return {

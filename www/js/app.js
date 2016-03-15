@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-var loseYourWayApp = angular.module('starter', ['ionic', 'leaflet-directive', 'ngCordova', 'loseYourWayControllers', 'loseYourWayServices'])
+var loseYourWayApp = angular.module('starter', ['ionic', 'ngResource', 'leaflet-directive', 'ngCordova', 'loseYourWayControllers', 'loseYourWayServices'])
 
 .config(function($compileProvider){
   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
@@ -112,12 +112,12 @@ loseYourWayApp.config(function($stateProvider, $urlRouterProvider) {
       }
     })
 
-  .state('tab.account', {
-    url: '/account',
+  .state('tab.social', {
+    url: '/social',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+      'tab-social': {
+        templateUrl: 'templates/tab-social.html',
+        controller: 'SocialCtrl'
       }
     }
   });

@@ -18,7 +18,7 @@
 	  <div class="list list-inset">
 		  <label class="item item-input">
 			<i class="icon ion-search placeholder-icon"></i>
-			<input type="text" placeholder="Search by name">
+			<input type="text" placeholder="Search by name" ng-model="findFilter">
 		  </label>
 	  </div>
 	  <div class="list">
@@ -26,10 +26,10 @@
 			<div class="input-label">
 			  Sort by
 			</div>
-			<select>
-			  <option selected>Name</option>
-			  <option>Theme</option>
-			  <option>Newest</option>
+			<select ng-model="orderProp">
+			  <option value="name">Name</option>
+			  <option value="theme">Theme</option>
+			  <option value="-created">Newest</option>
 			</select>
 		  </label>
 
@@ -38,9 +38,9 @@
 		Available Routes
 	  </div>
 	  <ion-list>
-		<ion-item class="item-icon-right" ng-repeat="route in routes" type="item-text-wrap" ng-click="">
+		<ion-item class="item-icon-right" ng-repeat="route in routes | filter:findFilter | orderBy:orderProp" type="item-text-wrap" ng-click="download(route)">
 		{{route.name}}
-		<i class="icon ion-ios-download-outline icon-accessory"></i>
+		<i class="icon ion-ios-download-outline "></i>
 		<span class="item-note">
 			{{route.theme}}
 		</span>
