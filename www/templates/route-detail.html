@@ -30,11 +30,6 @@
 				<button class="button icon-left ion-camera button-dark" ng-click="takePicture()">
 					Take Photo
 				</button>
-				<div class="item item-image">
-					<img ng-src="{{lastPhotoURI}}" style="max-width: 100%">
-				</div>
-				
-				<!--<p>{{lastPhotoURI}}</p>-->
 			</div>
 			
 			<label class="item item-input" ng-if="step.type == 'word'">
@@ -44,6 +39,13 @@
 			<a class="button button-block button-royal" ng-click="nextStep()">
 				<i class="icon ion-arrow-right-a"></i>
 			</a>
+			
+			<div ng-if="step.type == 'photo'">
+				<div class="item item-image">
+					<img ng-src="{{lastPhotoURI}}" style="max-width: 100%">
+				</div>
+				<!--<p>{{lastPhotoURI}}</p>-->
+			</div>
 		</div>
 		<div class="col text-center" ng-if="routeStep > steps.length">
 			<h4>You are now at the end of the route.</h4>
@@ -56,10 +58,15 @@
 			  <i class="icon ion-happy-outline"></i>
 			</div>
 
-			
-			<a class="button button-block button-royal" ng-click="finishRoute()">
-				<i class="icon ion-checkmark-round"></i>
-			</a>
+			<br>
+			<button class="button button-large icon-left ion-share button-royal" ng-click="shareExperience()">
+				Share Postcard
+			</button>
+			<div class="padding-top">
+			<button class="button icon-left ion-checkmark-round button-royal" ng-click="finishRoute()">
+				Done
+			</button>
+			</div>
 		</div>
 	  </div>
 	  </ion-content>

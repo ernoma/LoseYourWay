@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-var loseYourWayApp = angular.module('starter', ['ionic', 'ngResource', 'leaflet-directive', 'ngCordova', 'loseYourWayControllers', 'loseYourWayServices'])
+var loseYourWayApp = angular.module('starter', ['ionic', 'ngResource', 'leaflet-directive', 'ngCordova', 'routeControllers', 'mapControllers', 'socialControllers', 'loseYourWayServices'])
 
 .config(function($compileProvider){
   $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);

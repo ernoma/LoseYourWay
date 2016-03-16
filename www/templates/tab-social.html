@@ -1,13 +1,15 @@
 <ion-view view-title="Social">
   <ion-content>
-    <ion-list>
-	<div class="item item-icon-left" type="item-text-wrap" ng-click="openModal()">
-		Temppi
-		
-		<i class="icon ion-share"></i>
+    <div class="list card">
+	<div class="item item-body" ng-click="openModal()">
+		<p>Temppi</p>
 		<span class="item-note">
-			TemppiTeema
+			Theme: TemppiTeema
 		</span>
+		
+		<button class="button icon-left ion-share button-royal" ng-click="shareExperience()">
+				Share Postcard
+		</button>
 	</div>
     <ion-item class="item-icon-right" ng-repeat="route in finishedRoutes" type="item-text-wrap" ng-click="startRoute('{{route._id}}', '{{route.name}}')">
 		{{route.name}}
