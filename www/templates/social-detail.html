@@ -1,0 +1,28 @@
+
+
+<ion-view>
+	<ion-nav-title>
+      {{title}}
+    </ion-nav-title>
+	<ion-content>
+		<ion-list>
+			<div class="item item-divider">
+				Choose photos
+			</div>
+		</ion-list>
+		<div class="list card" ng-repeat="sharable in sharables">
+			<div class="item item-thumbnail-left item-text-wrap">
+			  <img ng-src="{{sharable.photo}}">
+			  <p>{{sharable.instructions}}</p>
+			</div>
+			<div class="row">
+				<div class="col"><ion-checkbox ng-model="sharable.include">Include to the postcard</ion-checkbox></div>
+		    </div>
+		</div>
+		<ion-list>
+			<div class="item item-divider">
+			<button class="button button-balanced button-block" ng-click="createPostcard()">Create</button>
+			</div>
+		</ion-list>
+	</ion-content>
+</ion-view>

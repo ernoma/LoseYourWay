@@ -72,16 +72,6 @@ loseYourWayApp.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-  /*.state('tab.route-step' {
-	url: '/routes/:routeID/:step,
-	views: {
-        'tab-routes': {
-          templateUrl: 'templates/route-step.html',
-          controller: 'RouteDetailCtrl'
-        }
-      }
-	}
-  )*/
 
   .state('tab.map', {
       url: '/map',
@@ -92,25 +82,6 @@ loseYourWayApp.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-  
-  .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
-      }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
 
   .state('tab.social', {
     url: '/social',
@@ -118,6 +89,16 @@ loseYourWayApp.config(function($stateProvider, $urlRouterProvider) {
       'tab-social': {
         templateUrl: 'templates/tab-social.html',
         controller: 'SocialCtrl'
+      }
+    }
+  })
+  
+  .state('tab.social-detail', {
+    url: '/social/:routeID',
+    views: {
+      'tab-social': {
+        templateUrl: 'templates/social-detail.html',
+        controller: 'SocialDetailCtrl'
       }
     }
   });

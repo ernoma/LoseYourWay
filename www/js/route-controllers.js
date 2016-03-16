@@ -255,9 +255,12 @@ var routeControllers = angular.module('routeControllers', [])
 	}
 	
 	$scope.nextStep = function() {
-
 		var step = $scope.routeStep + 1;
 		$state.go("tab.route-detail", {routeID: $scope.routeID, step: step});
+	}
+	
+	$scope.shareExperience = function() {
+		$state.go("tab.social-detail", {routeID: $scope.routeID});
 	}
 	
 	$scope.finishRoute = function() {
@@ -265,7 +268,6 @@ var routeControllers = angular.module('routeControllers', [])
 			historyRoot: true
 		});
 		$state.go("tab.routes");
-
 	}
 	
 	$scope.wordChange = function(word) {
@@ -292,7 +294,7 @@ var routeControllers = angular.module('routeControllers', [])
 		  targetWidth: 320,
 		  targetHeight: 320,
 		  correctOrientation: true,
-		  saveToPhotoAlbum: false
+		  saveToPhotoAlbum: true
 		}).then(function(imageURI) {
 			console.log(imageURI);
 			$scope.lastPhotoURI = imageURI;
