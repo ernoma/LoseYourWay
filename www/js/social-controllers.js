@@ -1,27 +1,51 @@
 
 var socialControllers = angular.module('socialControllers', [])
 
-.controller('SocialCtrl', function($scope, $localstorage) {
-	// $scope.savedRoutes = $localstorage.getObject("savedRoutes");
+.controller('SocialCtrl', function($scope, $localstorage, $state) {
 	
-	// var finishedRoutes = [];
+	var savedRoutes = $localstorage.getObject("savedRoutes");
+	
+	var finishedRoutes = [];
 		
-	// if (Object.keys($scope.savedRoutes).length === 0 && JSON.stringify($scope.savedRoutes) === JSON.stringify({})) {
-		// $scope.finishedRoutes = [];
-	// }
-	// else {
-		// var savedRoutes = $scope.savedRoutes.array;
-		
-		// for (var i = 0; i < savedRoutes.length; i++) {
-			// if (savedRoutes[i].finished == true) {
-				// finishedRoutes.push(savedRoutes[i]);
-			// }
-		// }
-		
-		// $scope.finishedRoutes = finishedRoutes;
-	// }
+	if (Object.keys(savedRoutes).length === 0 && JSON.stringify(savedRoutes) === JSON.stringify({})) {
+		// nothing to do
+	}
+	else {
+		for (var i = 0; i < savedRoutes.array.length; i++) {
+			if (savedRoutes.array[i].finished == true) {
+				finishedRoutes.push(savedRoutes.array[i]);
+			}
+		}
+	}
+	
+	//console.log(finishedRoutes);
+	
+	var downloadedRoutes = $localstorage.getObject("downloadedRoutes");
+	
+	//console.log(downloadedRoutes);
+	
+	$scope.routes = [];
+	
+	for (var i = 0; i < finishedRoutes.length; i++) {
+		for (var j = 0; j < downloadedRoutes.array.length; j++) {
+			if (downloadedRoutes.array[j]._id == finishedRoutes[i].routeID) {
+				$scope.routes.push({
+					id: finishedRoutes[i].routeID,
+					name: downloadedRoutes.array[j].name,
+					theme: downloadedRoutes.array[j].theme,
+					satisfaction: finishedRoutes[i].routeSatisfaction
+				});
+			}
+		}
+	}
+	
+	//console.log($scope.routes);
+	
+	$scope.shareExperience = function(route) {
+		$state.go("tab.social-detail", {routeID: route.id});
+	}
 })
-.controller('SocialDetailCtrl', function($scope, $stateParams, $cordovaSocialSharing, $localstorage) {
+.controller('SocialDetailCtrl', function($scope, $state, $stateParams, $ionicHistory, $cordovaSocialSharing, $localstorage) {
 	$scope.routeID = $stateParams.routeID;
 	
 	var savedRoutes = $localstorage.getObject("savedRoutes").array;
@@ -77,6 +101,18 @@ var socialControllers = angular.module('socialControllers', [])
 	//
 	$scope.createPostcard = function() {
 		$cordovaSocialSharing.share("Check out the experience!", "Lose Your Way Postcard", null, "https://loseyourway.herokuapp.com/sample");
+		
+		$ionicHistory.nextViewOptions({
+			historyRoot: true
+		});
+		$state.go("tab.social");
+	}
+	
+	$scope.cancel = function() {
+		$ionicHistory.nextViewOptions({
+			historyRoot: true
+		});
+		$state.go("tab.social");
 	}
 });
 

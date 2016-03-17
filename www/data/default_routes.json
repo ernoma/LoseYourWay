@@ -65,37 +65,5 @@
 		"type": "photo",
 		"instructions": "Let your nose lead you until you see something flying. Take a scenery photograph."
 		}]
-	},
-	{
-	"theme": "Social Inclusion",
-	"name": "Improve Suburb",
-	"_id": "2",
-	"created": "2016-02-01T08:00:00Z",
-	"tasks": 
-		[]
-	},
-	{
-	"theme": "Social Inclusion",
-	"name": "Be Happy",
-	"_id": "3",
-	"created": "2016-02-22T08:00:00Z",
-	"tasks": 
-		[]
-	},
-	{
-	"theme": "Social Inclusion",
-	"name": "Smile and Greet",
-	"_id": "4",
-	"created": "2016-03-16T08:00:00Z",
-	"tasks": 
-		[]
-	},
-	{
-	"theme": "Social Inclusion",
-	"name": "With Friends",
-	"_id": "5",
-	"created": "2016-01-31T08:00:00Z",
-	"tasks": 
-		[]
 	}
 ]

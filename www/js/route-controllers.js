@@ -123,14 +123,21 @@ var routeControllers = angular.module('routeControllers', [])
 	}
 })
 
-.controller('RouteFindCtrl', function($scope, $http, $state, $stateParams, $localstorage, Route) {
+.controller('RouteFindCtrl', function($scope, $http, $state, $stateParams, $localstorage, $ionicLoading, Route) {
 	$scope.title = "Find Routes";
 	
 	$scope.orderProp = 'name';
 	
 	$scope.downloadedRoutes = $localstorage.getObject("downloadedRoutes");
 	
+	$ionicLoading.show({
+      template: 'Retrieving...<br><ion-spinner class="spinner-energized" icon="ripple"></ion-spinner>'
+    });
+	
 	$scope.availableRoutes = Route.query(function() {
+		
+		$ionicLoading.hide();
+		
 		var tempRoutes = [];
 	
 		if (Object.keys($scope.downloadedRoutes).length === 0 && JSON.stringify($scope.downloadedRoutes) === JSON.stringify({})) {
