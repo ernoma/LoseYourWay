@@ -41,6 +41,51 @@ var socialControllers = angular.module('socialControllers', [])
 	
 	//console.log($scope.routes);
 	
+	
+	//
+	// Make sure the route list is updated
+	//
+	$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+		var savedRoutes = $localstorage.getObject("savedRoutes");
+	
+		var finishedRoutes = [];
+			
+		if (Object.keys(savedRoutes).length === 0 && JSON.stringify(savedRoutes) === JSON.stringify({})) {
+			// nothing to do
+		}
+		else {
+			for (var i = 0; i < savedRoutes.array.length; i++) {
+				if (savedRoutes.array[i].finished == true) {
+					finishedRoutes.push(savedRoutes.array[i]);
+				}
+			}
+		}
+		
+		//console.log(finishedRoutes);
+		
+		var downloadedRoutes = $localstorage.getObject("downloadedRoutes");
+		
+		var routes = [];
+		
+		//console.log(downloadedRoutes);
+		
+		for (var i = 0; i < finishedRoutes.length; i++) {
+			for (var j = 0; j < downloadedRoutes.array.length; j++) {
+				if (downloadedRoutes.array[j]._id == finishedRoutes[i].routeID) {
+					routes.push({
+						id: finishedRoutes[i].routeID,
+						name: downloadedRoutes.array[j].name,
+						theme: downloadedRoutes.array[j].theme,
+						satisfaction: finishedRoutes[i].routeSatisfaction
+					});
+				}
+			}
+		}
+	
+		$scope.routes = routes;
+	});
+	
+	
 	$scope.shareExperience = function(route) {
 		$state.go("tab.social-detail", {routeID: route.id});
 	}
