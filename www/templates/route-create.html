@@ -1,0 +1,57 @@
+
+<ion-view>
+	<ion-nav-title>
+      {{title}}
+    </ion-nav-title>
+	  <ion-content>
+		<div class="list padding">
+			<ion-item ng-repeat="task in route.tasks">
+				<div class="item item-divider item-button-right">
+					Task {{task.routeStep}}
+					<button class="button button-clear">
+					  <!--<i class="icon ion-close-circled"></i>
+					</button>-->
+				</div>
+				<label class="item item-input item-select">
+					<div class="input-label">
+					  Task type
+					</div>
+					<select ng-model="task.type">
+					  <option value="move">Move</option>
+					  <option value="photo">Take photo</option>
+					  <option value="word">Write word</option>
+					</select>
+				</label>
+				<div class="item">
+					<textarea class="task_textarea" placeholder="Instructions shown to the user"  ng-model="task.instructions" value="{{task.instructions}}"></textarea>
+				</div>
+			</ion-item>
+			<button class="button button-block button-calm" ng-click="addTask()">
+			  Add task
+			</button>
+			<label class="item item-input">
+				<span class="input-label">Route name</span>
+				<input type="text" placeholder="Lose Your Way..." ng-model="route.name">
+			</label>
+			<label class="item item-input item-select">
+				<div class="input-label">
+				  Choose theme
+				</div>
+				<select ng-model="route.theme">
+				  <option value="Architecture and urban design">Architecture and urban design</option>
+				  <option value="eSkills">eSkills</option>
+				  <option value="Mobility and transport">Mobility and transport</option>
+				  <option value="Social inclusion in cities">Social inclusion in cities</option>
+				  <option value="Urban innovation and creative industries">Urban innovation and creative industries</option>
+				  <option value="Urban planning">Urban planning</option>
+				</select>
+			</label>
+			<button class="button button-block button-positive" ng-click="saveRoute()">
+			  Save to phone
+			</button>
+			<button class="button button-block button-positive" ng-click="shareRoute()">
+			  Share to others
+			</button>
+		</div>
+	  </ion-content>
+</ion-view>

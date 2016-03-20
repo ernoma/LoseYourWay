@@ -72,6 +72,15 @@ loseYourWayApp.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+	.state('tab.route-create', {
+      url: '/routes/create',
+      views: {
+        'tab-routes': {
+          templateUrl: 'templates/route-create.html',
+          controller: 'RouteCreateCtrl'
+        }
+      }
+    })
 
   .state('tab.map', {
       url: '/map',

@@ -26,6 +26,8 @@ var socialControllers = angular.module('socialControllers', [])
 	
 	$scope.routes = [];
 	
+	$scope.privateRoutes = [];
+	
 	for (var i = 0; i < finishedRoutes.length; i++) {
 		for (var j = 0; j < downloadedRoutes.array.length; j++) {
 			if (downloadedRoutes.array[j]._id == finishedRoutes[i].routeID) {
@@ -35,6 +37,10 @@ var socialControllers = angular.module('socialControllers', [])
 					theme: downloadedRoutes.array[j].theme,
 					satisfaction: finishedRoutes[i].routeSatisfaction
 				});
+			}
+			
+			if (downloadedRoutes.array[j].privateToUser != undefined && downloadedRoutes.array[j].privateToUser == true) {
+				$scope.privateRoutes.push(downloadedRoutes.array[j]);
 			}
 		}
 	}

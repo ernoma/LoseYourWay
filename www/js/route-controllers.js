@@ -121,6 +121,41 @@ var routeControllers = angular.module('routeControllers', [])
 	$scope.findRoutes = function() {
 		$state.go("tab.route-find");
 	}
+	
+	$scope.createRoute = function() {
+		$state.go("tab.route-create");
+	}
+})
+
+.controller('RouteCreateCtrl', function($scope, $localstorage) {
+	$scope.title = "Create Route";
+	
+	$scope.route = {
+		theme: "Architecture and urban design",
+		name: "",
+		id: null,
+		privateToUser: true,
+		tasks: [{
+			type: "move",
+			routeStep: 1,
+			instructions: ""
+		}]
+	}
+	
+	$scope.addTask = function() {
+		$scope.route.tasks.push({
+			type: "move",
+			routeStep: $scope.route.tasks.length + 1,
+			instructions: ""
+		})
+	}
+	
+	$scope.saveRoute = function() {
+		var downloadedRoutes = $localstorage.getObject("downloadedRoutes");
+		$scope.route.id = new Date().toISOString();
+		downloadedRoutes.array.push($scope.route);
+		$localstorage.setObject("downloadedRoutes", downloadedRoutes);
+	}
 })
 
 .controller('RouteFindCtrl', function($scope, $http, $state, $stateParams, $localstorage, $ionicLoading, Route) {

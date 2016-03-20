@@ -1,30 +1,47 @@
 <ion-view view-title="Lose Your Way - Social">
-  <ion-content>
-  		<ion-list>
+	<ion-content>
+		<div ng-if="privateRoutes">
 			<div class="item item-divider">
-				Finished Routes
+				Routes created by you
 			</div>
-		</ion-list>
-    <div class="list card">
-		<ion-item ng-repeat="route in routes">
-			<h2>{{route.name}}</h2>
-			<span class="item-note">
-				{{route.theme}} theme
-			</span>			
-			<div ng-if="route.satisfaction < 50">
-				<p><i class="icon ion-sad-outline"></i> {{route.satisfaction}} points</p>
+			<div class="list padding">
+				<ion-item ng-repeat="route in privateRoutes">
+					<h2>{{route.name}}</h2>
+					<span class="item-note">
+						{{route.theme}} theme
+					</span>
+					<button class="button button-block icon ion-compose button-calm" ng-click="editRoute()">
+						Edit
+					</button>
+					<button class="button button-block icon ion-share button-positive" ng-click="shareRoute()">
+						Share to others
+					</button>
+				</ion-item>
 			</div>
-			<div ng-if="route.satisfaction >= 50">
-				<p><i class="icon ion-happy-outline"></i> {{route.satisfaction}} points</p>
-			</div>
-			<button class="button button-block icon ion-share button-royal" ng-click="shareExperience(route)">
-				Share Postcard
-			</button>
-		</ion-item>
-		<div class="item" ng-if="routes.length == 0">
-			None yet
 		</div>
-    </div>
-  </ion-content>
+		<div class="item item-divider">
+			Finished Routes
+		</div>
+		<div class="list card">
+			<ion-item ng-repeat="route in routes">
+				<h2>{{route.name}}</h2>
+				<span class="item-note">
+					{{route.theme}} theme
+				</span>			
+				<div ng-if="route.satisfaction < 50">
+					<p><i class="icon ion-sad-outline"></i> {{route.satisfaction}} points</p>
+				</div>
+				<div ng-if="route.satisfaction >= 50">
+					<p><i class="icon ion-happy-outline"></i> {{route.satisfaction}} points</p>
+				</div>
+				<button class="button button-block icon ion-share button-royal" ng-click="shareExperience(route)">
+					Share Postcard
+				</button>
+			</ion-item>
+			<div class="item" ng-if="routes.length == 0">
+				None yet
+			</div>
+		</div>
+	</ion-content>
 </ion-view>
 
