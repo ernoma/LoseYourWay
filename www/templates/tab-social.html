@@ -2,21 +2,24 @@
 	<ion-content>
 		<div ng-if="privateRoutes">
 			<div class="item item-divider">
-				Routes created by you
+				Your Private Routes
 			</div>
-			<div class="list padding">
+			<div class="list card">
 				<ion-item ng-repeat="route in privateRoutes">
 					<h2>{{route.name}}</h2>
 					<span class="item-note">
 						{{route.theme}} theme
 					</span>
-					<button class="button button-block icon ion-compose button-calm" ng-click="editRoute()">
+					<!--<button class="button button-block icon ion-compose button-calm" ng-click="editRoute(route)">
 						Edit
-					</button>
-					<button class="button button-block icon ion-share button-positive" ng-click="shareRoute()">
+					</button>-->
+					<button class="button button-block icon ion-share button-positive" ng-click="shareRoute(route)">
 						Share to others
 					</button>
 				</ion-item>
+				<div class="item" ng-if="privateRoutes.length == 0">
+					None
+				</div>
 			</div>
 		</div>
 		<div class="item item-divider">

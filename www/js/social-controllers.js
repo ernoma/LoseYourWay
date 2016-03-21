@@ -1,7 +1,7 @@
 
 var socialControllers = angular.module('socialControllers', [])
 
-.controller('SocialCtrl', function($scope, $localstorage, $state) {
+.controller('SocialCtrl', function($scope, $localstorage, $state, Route) {
 	
 	var savedRoutes = $localstorage.getObject("savedRoutes");
 	
@@ -27,9 +27,8 @@ var socialControllers = angular.module('socialControllers', [])
 	$scope.routes = [];
 	
 	$scope.privateRoutes = [];
-	
-	for (var i = 0; i < finishedRoutes.length; i++) {
-		for (var j = 0; j < downloadedRoutes.array.length; j++) {
+	for (var j = 0; j < downloadedRoutes.array.length; j++) {
+		for (var i = 0; i < finishedRoutes.length; i++) {
 			if (downloadedRoutes.array[j]._id == finishedRoutes[i].routeID) {
 				$scope.routes.push({
 					id: finishedRoutes[i].routeID,
@@ -38,10 +37,9 @@ var socialControllers = angular.module('socialControllers', [])
 					satisfaction: finishedRoutes[i].routeSatisfaction
 				});
 			}
-			
-			if (downloadedRoutes.array[j].privateToUser != undefined && downloadedRoutes.array[j].privateToUser == true) {
-				$scope.privateRoutes.push(downloadedRoutes.array[j]);
-			}
+		}
+		if (downloadedRoutes.array[j].privateToUser != undefined && downloadedRoutes.array[j].privateToUser == true) {
+			$scope.privateRoutes.push(downloadedRoutes.array[j]);
 		}
 	}
 	
@@ -74,9 +72,9 @@ var socialControllers = angular.module('socialControllers', [])
 		var routes = [];
 		
 		//console.log(downloadedRoutes);
-		
-		for (var i = 0; i < finishedRoutes.length; i++) {
-			for (var j = 0; j < downloadedRoutes.array.length; j++) {
+		$scope.privateRoutes = [];
+		for (var j = 0; j < downloadedRoutes.array.length; j++) {
+			for (var i = 0; i < finishedRoutes.length; i++) {
 				if (downloadedRoutes.array[j]._id == finishedRoutes[i].routeID) {
 					routes.push({
 						id: finishedRoutes[i].routeID,
@@ -86,6 +84,9 @@ var socialControllers = angular.module('socialControllers', [])
 					});
 				}
 			}
+			if (downloadedRoutes.array[j].privateToUser != undefined && downloadedRoutes.array[j].privateToUser == true) {
+				$scope.privateRoutes.push(downloadedRoutes.array[j]);
+			}
 		}
 	
 		$scope.routes = routes;
@@ -94,6 +95,51 @@ var socialControllers = angular.module('socialControllers', [])
 	
 	$scope.shareExperience = function(route) {
 		$state.go("tab.social-detail", {routeID: route.id});
+	}
+	
+	$scope.shareRoute = function(route) {
+		// Update the route in the downloadedRoutes and in savedRoutes (if there) with the route.id returned by the server and update privaToUser to undefined
+		var newRoute = new Route(route);
+		newRoute._id = undefined;
+		newRoute.privateToUser = undefined;
+		var response = newRoute.$save(function (data) {
+			console.log(data);
+				
+			var downloadedRoutes = $localstorage.getObject("downloadedRoutes");
+				
+			for (var i = 0; i < downloadedRoutes.array.length; i++) {
+				if (downloadedRoutes.array[i]._id == route._id) {
+					downloadedRoutes.array[i]._id = data._id;
+					downloadedRoutes.array[i].privateToUser = undefined;
+					break;
+				}	
+			}
+			
+			$localstorage.setObject("downloadedRoutes", downloadedRoutes);
+			
+			var savedRoutes = $localstorage.getObject("savedRoutes");
+		
+			if (Object.keys(savedRoutes).length === 0 && JSON.stringify(savedRoutes) === JSON.stringify({})) {
+				// Nothing to do
+			}
+			else {
+				for (var i = 0; i < savedRoutes.array.length; i++) {
+					if (savedRoutes.array[i].routeID == route._id) {
+						savedRoutes.array[i].routeID = data._id;
+						break;
+					}
+				}
+				
+				$localstorage.setObject("savedRoutes", savedRoutes);
+			}
+			
+			for (var i = 0; i < $scope.privateRoutes.length; i++) {
+				if ($scope.privateRoutes[i]._id == route._id) {
+					$scope.privateRoutes.splice(i, 1);
+					break;
+				}
+			}
+		});
 	}
 })
 .controller('SocialDetailCtrl', function($scope, $state, $stateParams, $ionicHistory, $cordovaSocialSharing, $localstorage) {

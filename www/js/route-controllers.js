@@ -127,14 +127,15 @@ var routeControllers = angular.module('routeControllers', [])
 	}
 })
 
-.controller('RouteCreateCtrl', function($scope, $localstorage) {
+.controller('RouteCreateCtrl', function($scope, $state, $localstorage, $ionicHistory, $ionicPopup, Route) {
 	$scope.title = "Create Route";
 	
 	$scope.route = {
 		theme: "Architecture and urban design",
 		name: "",
-		id: null,
+		_id: null,
 		privateToUser: true,
+		created: Date.now(),
 		tasks: [{
 			type: "move",
 			routeStep: 1,
@@ -150,11 +151,122 @@ var routeControllers = angular.module('routeControllers', [])
 		})
 	}
 	
+	$scope.deleteTask = function(index) {
+		console.log(index);
+		$scope.route.tasks.splice(index, 1);
+	}
+	
+	$scope.showDeleteConfirm = function(index) {
+	   var confirmPopup = $ionicPopup.confirm({
+		 title: 'Delete the task',
+		 template: 'Are you sure?'
+	   });
+
+	   confirmPopup.then(function(res) {
+		 if(res) {
+		   console.log('You are sure');
+		   $scope.deleteTask(index);
+		 } else {
+		   // nothing to do
+		 }
+	   });
+	}
+	
+	$scope.moveTaskUp = function(index) {
+		$scope.route.tasks.splice(index-1, 0, $scope.route.tasks.splice(index, 1)[0]);
+		
+		for (var i = 0; i < $scope.route.tasks.length; i++) {
+			$scope.route.tasks[i].routeStep = i + 1;
+		}
+	}
+	
+	$scope.moveTaskDown = function(index) {
+			$scope.route.tasks.splice(index+1, 0, $scope.route.tasks.splice(index, 1)[0]);
+			
+		for (var i = 0; i < $scope.route.tasks.length; i++) {
+			$scope.route.tasks[i].routeStep = i + 1;
+		}
+	}
+	
 	$scope.saveRoute = function() {
 		var downloadedRoutes = $localstorage.getObject("downloadedRoutes");
-		$scope.route.id = new Date().toISOString();
+		$scope.route._id = new Date().toISOString();
 		downloadedRoutes.array.push($scope.route);
 		$localstorage.setObject("downloadedRoutes", downloadedRoutes);
+		
+		$scope.route = {
+			theme: "Architecture and urban design",
+			name: "",
+			_id: null,
+			privateToUser: true,
+			created: Date.now(),
+			tasks: [{
+				type: "move",
+				routeStep: 1,
+				instructions: ""
+			}]
+		}
+		
+		$ionicHistory.nextViewOptions({
+			historyRoot: true
+		});
+		$state.go("tab.routes");
+	}
+	
+	$scope.shareRoute = function() {
+		// If route not yet in downloadedRoutes then add before uploading to server (needed for id update)
+		
+		var downloadedRoutes = $localstorage.getObject("downloadedRoutes");
+				
+		var found = false;
+		
+		for (var i = 0; i < downloadedRoutes.array.length; i++) {
+			if (downloadedRoutes.array[i]._id == $scope.route._id) {
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
+			$scope.saveRoute();
+		}
+		
+		// Update the route in the downloadedRoutes and in savedRoutes (if there) with the route.id returned by the server and update privaToUser to undefined
+		var newRoute = new Route($scope.route);
+		newRoute._id = undefined;
+		newRoute.privateToUser = undefined;
+		var response = newRoute.$save(function (data) {
+			console.log(data);
+				
+			var downloadedRoutes = $localstorage.getObject("downloadedRoutes");
+				
+			for (var i = 0; i < downloadedRoutes.array.length; i++) {
+				if (downloadedRoutes.array[i]._id == $scope.route._id) {
+					downloadedRoutes.array[i]._id = data._id;
+					downloadedRoutes.array[i].privateToUser = undefined;
+					break;
+				}	
+			}
+			
+			$localstorage.setObject("downloadedRoutes", downloadedRoutes);
+			
+			var savedRoutes = $localstorage.getObject("savedRoutes");
+		
+			if (Object.keys(savedRoutes).length === 0 && JSON.stringify(savedRoutes) === JSON.stringify({})) {
+				// Nothing to do
+			}
+			else {
+				for (var i = 0; i < savedRoutes.array.length; i++) {
+					if (savedRoutes.array[i].routeID == $scope.route._id) {
+						savedRoutes.array[i].routeID = data._id;
+						break;
+					}
+				}
+				
+				$localstorage.setObject("savedRoutes", savedRoutes);
+			}
+			
+			$scope.route._id = data._id;
+		});
 	}
 })
 

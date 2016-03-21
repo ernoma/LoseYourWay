@@ -1,6 +1,7 @@
 var loseYourWayServices = angular.module('loseYourWayServices', [])
 .factory('Route', function($resource) {
   return $resource('http://loseyourway.herokuapp.com/routes/:id');
+  //return $resource('http://192.168.1.85:3000/routes/:id');
 })
 .factory('Camera', ['$q', function($q) {
 
