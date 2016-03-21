@@ -1,17 +1,20 @@
-<ion-nav-bar>
-</ion-nav-bar>
-<ion-view view-title="Lose Your Way">
-	<ion-nav-buttons side="primary">
-      <button class="button button-dark" ng-click="findRoutes()">
-        <i class="icon ion-search"></i> Find routes online
-      </button>
-    </ion-nav-buttons>
-	<ion-nav-buttons side="secondary">
-      <button class="button button-dark" ng-click="createRoute()">
-        <i class="icon ion-compose"></i> Create route
-      </button>
-    </ion-nav-buttons>
+
+<ion-view view-title="Lose Your Way - Routes">
   <ion-content>
+  <div class="item item-divider">
+		<div class="row">
+			<div class="col">
+				<button class="button button-dark button-small" ng-click="findRoutes()">
+					<i class="icon ion-search"></i> Find routes online
+				</button>
+			</div>
+			<div class="col right">
+				<button class="button button-dark button-small" ng-click="createRoute()">
+					<i class="icon ion-compose"></i> Create route
+				</button>
+			</div>
+		</div>
+	</div>
     <div class="item item-divider">
 		To Explore
 	</div>
@@ -42,5 +45,6 @@
 	<div class="item" ng-if="finishedRoutes.length == 0">
 		None yet
 	</div>
+
   </ion-content>
 </ion-view>

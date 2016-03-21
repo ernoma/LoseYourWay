@@ -154,6 +154,10 @@ var routeControllers = angular.module('routeControllers', [])
 	$scope.deleteTask = function(index) {
 		console.log(index);
 		$scope.route.tasks.splice(index, 1);
+		
+		for (var i = 0; i < $scope.route.tasks.length; i++) {
+			$scope.route.tasks[i].routeStep = i + 1;
+		}
 	}
 	
 	$scope.showDeleteConfirm = function(index) {
@@ -164,7 +168,6 @@ var routeControllers = angular.module('routeControllers', [])
 
 	   confirmPopup.then(function(res) {
 		 if(res) {
-		   console.log('You are sure');
 		   $scope.deleteTask(index);
 		 } else {
 		   // nothing to do

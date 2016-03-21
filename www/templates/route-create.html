@@ -26,16 +26,17 @@
 					<div class="item">
 						<textarea class="task_textarea" placeholder="Instructions shown to the user"  ng-model="task.instructions" value="{{task.instructions}}"></textarea>
 					</div>
-
-					<button class="button button-assertive icon ion-close-circled" ng-click="showDeleteConfirm($index)">
-						Delete task
-					</button>
-					<button class="button button-energized icon ion-chevron-up" ng-click="moveTaskUp($index)" ng-disabled="$index == 0">
-						Move task up
-					</button>
-					<button class="button button-energized icon ion-chevron-down" ng-click="moveTaskDown($index)"  ng-disabled="$index == route.tasks.length - 1">
-						Move task down
-					</button>
+					<div class="item">
+						<button class="button button-block button-assertive icon ion-close-circled" ng-click="showDeleteConfirm($index)">
+							Delete task
+						</button>
+						<button class="button button-block button-energized icon ion-chevron-up" ng-click="moveTaskUp($index)" ng-disabled="$index == 0">
+							Move task up
+						</button>
+						<button class="button button-block button-energized icon ion-chevron-down" ng-click="moveTaskDown($index)"  ng-disabled="$index == route.tasks.length - 1">
+							Move task down
+						</button>
+					</div>
 				</ion-item>
 				<button class="button button-block button-calm" ng-click="addTask()">
 				  Add other task
