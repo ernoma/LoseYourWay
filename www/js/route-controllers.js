@@ -107,7 +107,7 @@ var routeControllers = angular.module('routeControllers', [])
 				routeID: routeID,
 				savedTasks: [],
 				GPSTrace: {},
-				routeSatisfaction: -1,
+				routeSatisfaction: 50,
 				finished: false
 			};
 			
