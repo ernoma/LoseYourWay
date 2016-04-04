@@ -21,10 +21,16 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
-    "cordova-plugin-x-socialsharing"
+    "cordova-plugin-geolocation",
+    "cordova-plugin-camera"
   ],
   "cordovaPlatforms": [
     "android",
-    "ios"
+    "ios",
+    {
+      "platform": "android",
+      "version": "",
+      "locator": "android"
+    }
   ]
 }
