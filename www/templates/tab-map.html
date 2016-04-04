@@ -1,11 +1,15 @@
 <ion-view view-title="Lose Your Way - Map">
 
+  <ion-nav-buttons side="left">
+    <button ng-click="goToAmsterdam();" class="button button-dark icon-left ion-pinpoint">Amsterdam</button>
+  </ion-nav-buttons>
+
   <ion-nav-buttons side="right">
-    <button ng-click="locate();" class="button button-icon icon ion-pinpoint"></button>
+    <button ng-click="showOnlineMap();" class="button button-dark icon-left ion-pinpoint">Online</button>
   </ion-nav-buttons>
   
   <ion-content data-tap-disabled="true">
 	<!--<div id="map" data-tap-disabled="true"></div>-->
-    <leaflet defaults="map.defaults" center="map.center" markers="map.markers" ng-if="map"></leaflet>
+    <leaflet defaults="map.defaults" center="map.center" markers="map.markers" tiles="tiles" ng-if="map"></leaflet>
   </ion-content>
 </ion-view>
