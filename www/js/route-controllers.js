@@ -184,7 +184,7 @@ var routeControllers = angular.module('routeControllers', [])
 	}
 	
 	$scope.moveTaskDown = function(index) {
-			$scope.route.tasks.splice(index+1, 0, $scope.route.tasks.splice(index, 1)[0]);
+		$scope.route.tasks.splice(index+1, 0, $scope.route.tasks.splice(index, 1)[0]);
 			
 		for (var i = 0; i < $scope.route.tasks.length; i++) {
 			$scope.route.tasks[i].routeStep = i + 1;
@@ -281,12 +281,17 @@ var routeControllers = angular.module('routeControllers', [])
 	$scope.downloadedRoutes = $localstorage.getObject("downloadedRoutes");
 	
 	$ionicLoading.show({
-      template: 'Retrieving...<br><ion-spinner class="spinner-energized" icon="ripple"></ion-spinner>'
+      template: 'Retrieving...<br><ion-spinner class="spinner-energized" icon="ripple"></ion-spinner><br><button class="button button-dark" ng-click="cancel()">Cancel</button>',
+	  scope: $scope
     });
+	
+	$scope.cancel = function() {
+		$ionicLoading.hide();
+	}
 	
 	$scope.availableRoutes = Route.query(function() {
 		
-		$ionicLoading.hide();
+		//$ionicLoading.hide();
 		
 		var tempRoutes = [];
 	

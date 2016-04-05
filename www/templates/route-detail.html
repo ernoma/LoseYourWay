@@ -36,6 +36,15 @@
 				<input type="text" placeholder="Type Word" ng-change="wordChange(word)" ng-model="word">
 			</label>
 			
+			<div ng-if="step.type == 'photoword'">
+				<label class="item item-input padding-bottom"> 
+					<input type="text" placeholder="Type Word" ng-change="wordChange(word)" ng-model="word">
+				</label>
+				<button class="button icon-left ion-camera button-dark marginextra-top" ng-click="takePicture()">
+					Take Photo
+				</button>
+			</div>
+			
 			<a class="button button-block button-royal" ng-click="nextStep()">
 				<i class="icon ion-arrow-right-a"></i>
 			</a>
