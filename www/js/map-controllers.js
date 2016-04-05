@@ -13,10 +13,10 @@ var mapControllers = angular.module('mapControllers', [])
 		amsterdam: {
 			name: 'Amsterdam',
 			type: 'xyz',
-			url: '/data/maps/amsterdam/EPSG_900913_{z}/{x}_{y}.jpeg', 
+			url: 'data/maps/amsterdam/EPSG_900913_{z}/{x}_{y}.jpeg', 
 			options: {
 				tms: true,
-				maxNativeZoom: 17,
+				maxNativeZoom: 16,
 				attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			}
 		},	
