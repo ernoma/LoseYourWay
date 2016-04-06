@@ -106,9 +106,10 @@ var routeControllers = angular.module('routeControllers', [])
 			var savedRoute = {
 				routeID: routeID,
 				savedTasks: [],
-				GPSTrace: {},
+				GPSTrace: [],
 				routeSatisfaction: 50,
-				finished: false
+				finished: false,
+				name: routeName
 			};
 			
 			savedRoutes.array.push(savedRoute);
@@ -291,7 +292,7 @@ var routeControllers = angular.module('routeControllers', [])
 	
 	$scope.availableRoutes = Route.query(function() {
 		
-		//$ionicLoading.hide();
+		$ionicLoading.hide();
 		
 		var tempRoutes = [];
 	
@@ -345,7 +346,7 @@ var routeControllers = angular.module('routeControllers', [])
 	}
 })
 
-.controller('RouteDetailCtrl', function($scope, $http, $state, $stateParams, $ionicHistory, Camera, $localstorage) {
+.controller('RouteDetailCtrl', function($scope, $http, $state, $stateParams, $ionicHistory, Camera, $localstorage, $cordovaGeolocation) {
 	
 	$scope.savedRoutes = $localstorage.getObject("savedRoutes");
 	
@@ -357,34 +358,37 @@ var routeControllers = angular.module('routeControllers', [])
 	$scope.lastPhotoURI = "";
 	$scope.word = "";
 	
-	
 	var savedRoutes = $scope.savedRoutes.array;
+	
+	var savedRouteIndex = null;
+	
 	for (var i = 0; i < savedRoutes.length; i++) {
 		if (savedRoutes[i].routeID == $scope.routeID) {
-				
-			if ($scope.routeStep == savedRoutes[i].savedTasks.length) { // the route step is seen first time by the user
-				
-				var savedTask = {
-					routeStep: $scope.routeStep,
-					photoURL: "",
-					word: ""
-				}
-				savedRoutes[i].savedTasks.push(savedTask);
-				$localstorage.setObject("savedRoutes", $scope.savedRoutes);
-			}
-			else {
-				$scope.lastPhotoURI = savedRoutes[i].savedTasks[$scope.routeStep].photoURL;
-				//console.log(savedRoutes[i].savedTasks[$scope.routeStep].word);
-				$scope.word = savedRoutes[i].savedTasks[$scope.routeStep].word;
-				if (savedRoutes[i].routeSatisfaction > 0) {
-					$scope.routeSatisfaction = savedRoutes[i].routeSatisfaction;
-				}
-			}
-			
+			savedRouteIndex = i;
 			break;
 		}
 	}
-	
+		
+	if ($scope.routeStep == savedRoutes[savedRouteIndex].savedTasks.length) { // the route step is seen first time by the user
+		
+		var savedTask = {
+			routeStep: $scope.routeStep,
+			photoURL: "",
+			word: ""
+		}
+		savedRoutes[savedRouteIndex].savedTasks.push(savedTask);
+		$localstorage.setObject("savedRoutes", $scope.savedRoutes);
+	}
+	else {
+		$scope.lastPhotoURI = savedRoutes[savedRouteIndex].savedTasks[$scope.routeStep].photoURL;
+		//console.log(savedRoutes[savedRouteIndex].savedTasks[$scope.routeStep].word);
+		$scope.word = savedRoutes[savedRouteIndex].savedTasks[$scope.routeStep].word;
+		if (savedRoutes[savedRouteIndex].routeSatisfaction > 0) {
+			$scope.routeSatisfaction = savedRoutes[savedRouteIndex].routeSatisfaction;
+		}
+	}
+
+
 	var downloadedRoutes = $localstorage.getObject("downloadedRoutes");
 	
 	for (var i = 0; i < downloadedRoutes.array.length; i++) {
@@ -402,21 +406,54 @@ var routeControllers = angular.module('routeControllers', [])
 			}
 			else { // Finished
 				$scope.title = downloadedRoutes.array[i].name + " - Finished";
-		
-				for (var i = 0; i < $scope.savedRoutes.array.length; i++) {
-					if ($scope.savedRoutes.array[i].routeID == $scope.routeID) {
-						$scope.savedRoutes.array[i].finished = true;
-						$localstorage.setObject("savedRoutes", $scope.savedRoutes);
-						break;
-					}
-				}
+				savedRoutes[savedRouteIndex].finished = true;
+				$localstorage.setObject("savedRoutes", $scope.savedRoutes);
 			}
 			
 			break;
 		}
 	}
 	
+	//
+	// GeoLocation related code
+	//
+	function onWatchSuccess(position) {
+		var latitude = position.coords.latitude;
+		var longitude = position.coords.longitude;
+
+		console.log("Latitude : " + latitude + " Longitude: " + longitude);
+		
+		savedRoutes[savedRouteIndex].GPSTrace.push({
+			lat: latitude,
+			lng: longitude,
+			routeStep: $scope.routeStep
+		});
+		
+		//$localstorage.setObject("savedRoutes", $scope.savedRoutes);
+	}
+	function onWatchError(err) {
+		if (err.code == 1) {
+			console.log("Error: Access is denied!");
+		}
+		else if ( err.code == 2) {
+			console.log("Error: Position is unavailable!");
+		}
+	}
+	var watchOptions = {timeout : 10000, enableHighAccuracy: true};
+	watchID = navigator.geolocation.watchPosition(onWatchSuccess, onWatchError, watchOptions);
+	//var watch = $cordovaGeolocation.watchPosition(watchOptions);
+	// watch.promise.then(
+		// null,
+		// locationErrorHandler,
+		// onWatchSuccess
+	// );
+	
 	$scope.nextStep = function() {
+		if ($scope.steps.length == $scope.routeStep) {
+			navigator.geolocation.clearWatch(watchID);
+			//$cordovaGeolocation.clearWatch(watch.watchID);
+		}
+		$localstorage.setObject("savedRoutes", $scope.savedRoutes);
 		var step = $scope.routeStep + 1;
 		$state.go("tab.route-detail", {routeID: $scope.routeID, step: step});
 	}
@@ -426,6 +463,7 @@ var routeControllers = angular.module('routeControllers', [])
 	}
 	
 	$scope.finishRoute = function() {
+	
 		$ionicHistory.nextViewOptions({
 			historyRoot: true
 		});
@@ -440,14 +478,8 @@ var routeControllers = angular.module('routeControllers', [])
 	}
 	
 	$scope.routeSatisfactionChange = function(routeSatisfaction) {
-		var savedRoutes = $scope.savedRoutes.array;
-		for (var i = 0; i < savedRoutes.length; i++) {
-			if (savedRoutes[i].routeID == $scope.routeID) {
-				savedRoutes[i].routeSatisfaction = routeSatisfaction;
-				$localstorage.setObject("savedRoutes", $scope.savedRoutes);
-				break;
-			}
-		}
+		savedRoutes[savedRouteIndex].routeSatisfaction = routeSatisfaction;
+		$localstorage.setObject("savedRoutes", $scope.savedRoutes);
 	}
 	
 	$scope.takePicture = function() {
@@ -470,12 +502,6 @@ var routeControllers = angular.module('routeControllers', [])
 	}
 	
 	var loadCurrentSavedTask = function() {
-		var savedRoutes = $scope.savedRoutes.array;
-		
-		for (var i = 0; i < savedRoutes.length; i++) {
-			if (savedRoutes[i].routeID == $scope.routeID) {
-				return savedRoutes[i].savedTasks[$scope.routeStep];
-			}
-		}
+		return savedRoutes[savedRouteIndex].savedTasks[$scope.routeStep];
 	}
 });
