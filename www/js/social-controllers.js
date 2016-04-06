@@ -34,7 +34,10 @@ var socialControllers = angular.module('socialControllers', [])
 					id: finishedRoutes[i].routeID,
 					name: downloadedRoutes.array[j].name,
 					theme: downloadedRoutes.array[j].theme,
-					satisfaction: finishedRoutes[i].routeSatisfaction
+					routeSatisfaction: finishedRoutes[i].routeSatisfaction,
+					appSatisfaction: finishedRoutes[i].appSatisfaction,
+					uxSatisfaction: finishedRoutes[i].uxSatisfaction,
+					suggestions: finishedRoutes[i].suggestions
 				});
 			}
 		}
@@ -80,7 +83,10 @@ var socialControllers = angular.module('socialControllers', [])
 						id: finishedRoutes[i].routeID,
 						name: downloadedRoutes.array[j].name,
 						theme: downloadedRoutes.array[j].theme,
-						satisfaction: finishedRoutes[i].routeSatisfaction
+						routeSatisfaction: finishedRoutes[i].routeSatisfaction,
+						appSatisfaction: finishedRoutes[i].appSatisfaction,
+						uxSatisfaction: finishedRoutes[i].uxSatisfaction,
+						suggestions: finishedRoutes[i].suggestions
 					});
 				}
 			}

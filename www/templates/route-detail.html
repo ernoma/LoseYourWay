@@ -60,16 +60,45 @@
 			<h4>You are now at the end of the route.</h4>
 			<h4>Fine achievement!</h4>
 			
-			<p>How did you like the experience?</p>
-			<div class="item range range-energized">
-			  <i class="icon ion-sad-outline"></i>
-			  <input type="range" name="satisfaction" min="1" max="100" value="50" ng-change="routeSatisfactionChange(routeSatisfaction)" ng-model="routeSatisfaction">
-			  <i class="icon ion-happy-outline"></i>
-			</div>
+			<div class="list">
+				<div class="item">
+					<p>How did you like the route?</p>
+					<div class="item range range-energized">
+					  <i class="icon ion-sad-outline"></i>
+					  <input type="range" name="satisfaction" min="1" max="100" value="50" ng-change="routeSatisfactionChange(routeSatisfaction)" ng-model="routeSatisfaction">
+					  <i class="icon ion-happy-outline"></i>
+					</div>
+				</div>
+				
+				<div class="item">
+					<p>How did you like using the application?</p>
+					<div class="item range range-energized">
+					  <i class="icon ion-sad-outline"></i>
+					  <input type="range" name="satisfaction" min="1" max="100" value="50" ng-change="appSatisfactionChange(appSatisfaction)" ng-model="appSatisfaction">
+					  <i class="icon ion-happy-outline"></i>
+					</div>
+				</div>
 
+				<div class="item">
+					<p>Was navigation in the UI easy?</p>
+					<div class="item range range-energized">
+					  <i class="icon ion-sad-outline"></i>
+					  <input type="range" name="satisfaction" min="1" max="100" value="50" ng-change="uxSatisfactionChange(uxSatisfaction)" ng-model="uxSatisfaction">
+					  <i class="icon ion-happy-outline"></i>
+					</div>
+				</div>
+				
+				<div class="item">
+					<p>We would like to hear about your thoughts and suggestions. Please drop a line!</p>
+					<div class="list list-inset">
+						<textarea class="task_textarea" placeholder="Thoughts, suggestions, ..." ng-change="suggestionsChange(suggestions)" ng-model="suggestions" value="{{suggestions}}"></textarea>
+					</div>
+				</div>
+			</div>
+			
 			<br>
 			<button class="button button-large icon-left ion-share button-royal" ng-click="shareExperience()">
-				Share Feedback
+				Share Route & Feedback
 			</button>
 			<div class="padding-top">
 			<button class="button icon-left ion-checkmark-round button-royal" ng-click="finishRoute()">

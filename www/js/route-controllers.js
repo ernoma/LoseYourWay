@@ -108,6 +108,9 @@ var routeControllers = angular.module('routeControllers', [])
 				savedTasks: [],
 				GPSTrace: [],
 				routeSatisfaction: 50,
+				appSatisfaction: 50,
+				uxSatisfaction: 50,
+				suggestions: "",
 				finished: false,
 				name: routeName
 			};
@@ -354,6 +357,9 @@ var routeControllers = angular.module('routeControllers', [])
 	$scope.routeStep = Number($stateParams.step);
 	
 	$scope.routeSatisfaction = 50;
+	$scope.appSatisfaction = 50;
+	$scope.uxSatisfaction = 50;
+	$scope.suggestions = "";
 	
 	$scope.lastPhotoURI = "";
 	$scope.word = "";
@@ -383,9 +389,10 @@ var routeControllers = angular.module('routeControllers', [])
 		$scope.lastPhotoURI = savedRoutes[savedRouteIndex].savedTasks[$scope.routeStep].photoURL;
 		//console.log(savedRoutes[savedRouteIndex].savedTasks[$scope.routeStep].word);
 		$scope.word = savedRoutes[savedRouteIndex].savedTasks[$scope.routeStep].word;
-		if (savedRoutes[savedRouteIndex].routeSatisfaction > 0) {
-			$scope.routeSatisfaction = savedRoutes[savedRouteIndex].routeSatisfaction;
-		}
+		$scope.routeSatisfaction = savedRoutes[savedRouteIndex].routeSatisfaction;
+		$scope.appSatisfaction = savedRoutes[savedRouteIndex].appSatisfaction;
+		$scope.uxSatisfaction = savedRoutes[savedRouteIndex].uxSatisfaction;
+		$scope.suggestions = savedRoutes[savedRouteIndex].suggestions;
 	}
 
 
@@ -439,17 +446,22 @@ var routeControllers = angular.module('routeControllers', [])
 			console.log("Error: Position is unavailable!");
 		}
 	}
-	var watchOptions = {timeout : 10000, enableHighAccuracy: true};
-	watchID = navigator.geolocation.watchPosition(onWatchSuccess, onWatchError, watchOptions);
-	//var watch = $cordovaGeolocation.watchPosition(watchOptions);
-	// watch.promise.then(
-		// null,
-		// locationErrorHandler,
-		// onWatchSuccess
-	// );
+	
+	var watchID = undefined;
+	//var watch = null;
+	if (!savedRoutes[savedRouteIndex].finished) {
+		var watchOptions = {timeout : 10000, enableHighAccuracy: true};
+		watchID = navigator.geolocation.watchPosition(onWatchSuccess, onWatchError, watchOptions);
+		//var watch = $cordovaGeolocation.watchPosition(watchOptions);
+		// watch.promise.then(
+			// null,
+			// locationErrorHandler,
+			// onWatchSuccess
+		// );
+	}
 	
 	$scope.nextStep = function() {
-		if ($scope.steps.length == $scope.routeStep) {
+		if (!savedRoutes[savedRouteIndex].finished && $scope.steps.length == $scope.routeStep) {
 			navigator.geolocation.clearWatch(watchID);
 			//$cordovaGeolocation.clearWatch(watch.watchID);
 		}
@@ -479,6 +491,19 @@ var routeControllers = angular.module('routeControllers', [])
 	
 	$scope.routeSatisfactionChange = function(routeSatisfaction) {
 		savedRoutes[savedRouteIndex].routeSatisfaction = routeSatisfaction;
+		$localstorage.setObject("savedRoutes", $scope.savedRoutes);
+	}
+	$scope.appSatisfactionChange = function(appSatisfaction) {
+		savedRoutes[savedRouteIndex].appSatisfaction = appSatisfaction;
+		$localstorage.setObject("savedRoutes", $scope.savedRoutes);
+	}
+	$scope.uxSatisfactionChange = function(uxSatisfaction) {
+		savedRoutes[savedRouteIndex].uxSatisfaction = uxSatisfaction;
+		$localstorage.setObject("savedRoutes", $scope.savedRoutes);
+	}
+	$scope.suggestionsChange = function(suggestions) {
+		//console.log("suggestionsChange");
+		savedRoutes[savedRouteIndex].suggestions = suggestions;
 		$localstorage.setObject("savedRoutes", $scope.savedRoutes);
 	}
 	

@@ -30,15 +30,33 @@
 				<h2>{{route.name}}</h2>
 				<span class="item-note">
 					{{route.theme}} theme
-				</span>		
-				<div ng-if="route.satisfaction < 50">
-					<p><i class="icon ion-sad-outline"></i> {{route.satisfaction}} points</p>
+				</span>
+				<div ng-if="route.routeSatisfaction < 50">
+					<p>Route <i class="icon ion-sad-outline"></i> {{route.routeSatisfaction}} points</p>
 				</div>
-				<div ng-if="route.satisfaction >= 50">
-					<p><i class="icon ion-happy-outline"></i> {{route.satisfaction}} points</p>
+				<div ng-if="route.routeSatisfaction >= 50">
+					<p>Route <i class="icon ion-happy-outline"></i> {{route.routeSatisfaction}} points</p>
+				</div>
+				<div ng-if="route.appSatisfaction < 50">
+					<p>Application <i class="icon ion-sad-outline"></i> {{route.appSatisfaction}} points</p>
+				</div>
+				<div ng-if="route.appSatisfaction >= 50">
+					<p>Application <i class="icon ion-happy-outline"></i> {{route.appSatisfaction}} points</p>
+				</div>
+				<div ng-if="route.uxSatisfaction < 50">
+					<p>UI <i class="icon ion-sad-outline"></i> {{route.uxSatisfaction}} points</p>
+				</div>
+				<div ng-if="route.uxSatisfaction >= 50">
+					<p>UI <i class="icon ion-happy-outline"></i> {{route.uxSatisfaction}} points</p>
+				</div>
+				<div>
+					<p>Thoughts & suggestions:
+						<span ng-if="route.suggestions != ''">{{route.suggestions}}</span>
+						<span ng-if="route.suggestions == ''">-</span>
+					</p>
 				</div>
 				<button class="button button-block icon ion-share button-royal" ng-click="shareExperience(route)">
-					Share Feedback
+					Share Route & Feedback
 				</button>
 			</ion-item>
 			<div class="item" ng-if="routes.length == 0">
