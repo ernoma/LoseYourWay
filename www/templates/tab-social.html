@@ -55,9 +55,14 @@
 						<span ng-if="route.suggestions == ''">-</span>
 					</p>
 				</div>
-				<button class="button button-block icon ion-share button-royal" ng-click="shareExperience(route)">
+				<button class="button button-block icon ion-share button-royal" ng-click="shareExperience(route)" ng-if="route.shared == undefined">
 					Share Route & Feedback
 				</button>
+				<div class="list list-inset" ng-if="route.shared != undefined">
+					<div class="item">
+						Route & feedback has been shared
+					</div>
+				</div>
 			</ion-item>
 			<div class="item" ng-if="routes.length == 0">
 				None yet

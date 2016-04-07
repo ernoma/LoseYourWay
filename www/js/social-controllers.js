@@ -1,7 +1,7 @@
 
 var socialControllers = angular.module('socialControllers', [])
 
-.controller('SocialCtrl', function($scope, $localstorage, $state, Route) {
+.controller('SocialCtrl', function($scope, $localstorage, $state, Route, RouteResult) {
 	
 	var savedRoutes = $localstorage.getObject("savedRoutes");
 	
@@ -31,13 +31,16 @@ var socialControllers = angular.module('socialControllers', [])
 		for (var i = 0; i < finishedRoutes.length; i++) {
 			if (downloadedRoutes.array[j]._id == finishedRoutes[i].routeID) {
 				$scope.routes.push({
-					id: finishedRoutes[i].routeID,
-					name: downloadedRoutes.array[j].name,
-					theme: downloadedRoutes.array[j].theme,
-					routeSatisfaction: finishedRoutes[i].routeSatisfaction,
-					appSatisfaction: finishedRoutes[i].appSatisfaction,
-					uxSatisfaction: finishedRoutes[i].uxSatisfaction,
-					suggestions: finishedRoutes[i].suggestions
+						id: finishedRoutes[i].routeID,
+						name: downloadedRoutes.array[j].name,
+						theme: downloadedRoutes.array[j].theme,
+						GPSTrace: finishedRoutes[i].GPSTrace,
+						savedTasks: finishedRoutes[i].savedTasks,
+						routeSatisfaction: finishedRoutes[i].routeSatisfaction,
+						appSatisfaction: finishedRoutes[i].appSatisfaction,
+						uxSatisfaction: finishedRoutes[i].uxSatisfaction,
+						suggestions: finishedRoutes[i].suggestions,
+						shared: finishedRoutes[i].shared
 				});
 			}
 		}
@@ -83,10 +86,13 @@ var socialControllers = angular.module('socialControllers', [])
 						id: finishedRoutes[i].routeID,
 						name: downloadedRoutes.array[j].name,
 						theme: downloadedRoutes.array[j].theme,
+						GPSTrace: finishedRoutes[i].GPSTrace,
+						savedTasks: finishedRoutes[i].savedTasks,
 						routeSatisfaction: finishedRoutes[i].routeSatisfaction,
 						appSatisfaction: finishedRoutes[i].appSatisfaction,
 						uxSatisfaction: finishedRoutes[i].uxSatisfaction,
-						suggestions: finishedRoutes[i].suggestions
+						suggestions: finishedRoutes[i].suggestions,
+						shared: finishedRoutes[i].shared
 					});
 				}
 			}
@@ -100,7 +106,28 @@ var socialControllers = angular.module('socialControllers', [])
 	
 	
 	$scope.shareExperience = function(route) {
-		$state.go("tab.social-detail", {routeID: route.id});
+		route.routeID = route.id;
+		route.id = undefined;
+			
+		var newRouteResult = new RouteResult(route);
+		var response = newRouteResult.$save(function (data) {
+			console.log(data);
+			
+			var savedRoutes = $localstorage.getObject("savedRoutes");
+	
+			for (var i = 0; i < savedRoutes.array.length; i++) {
+				if (savedRoutes.array[i].routeID == route.routeID) {
+					savedRoutes.array[i].shared = true;
+					$scope.routes[i].shared = true;
+					$localstorage.setObject("savedRoutes", savedRoutes);
+					break;
+				}
+			}
+		});
+		
+		// TODO: mark psoted (saved) routeresult as posted after successfully sent to server
+		
+		//$state.go("tab.social-detail", {routeID: route.id});
 	}
 	
 	$scope.shareRoute = function(route) {

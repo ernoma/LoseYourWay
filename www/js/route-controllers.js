@@ -507,6 +507,7 @@ var routeControllers = angular.module('routeControllers', [])
 			historyRoot: true
 		});
 		$state.go("tab.routes");
+		//$state.go("tab.social");
 	}
 	
 	$scope.wordChange = function(word) {
