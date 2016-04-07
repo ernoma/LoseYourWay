@@ -1,7 +1,34 @@
 
 var routeControllers = angular.module('routeControllers', [])
 
-.controller('RoutesCtrl', function($scope, $http, $state, $localstorage) {
+.controller('RoutesCtrl', function($scope, $http, $state, $localstorage, $ionicPopup) {
+	
+	$scope.data = {}
+	
+	$scope.showIntro = function() {
+		var welcomePopup = $ionicPopup.show({
+			template: '<p>Interested to have a bit different look to your surroundins? With LoseYourWay you are able to do this via routes that excite your imagination. You can even create your own routes and share them with others! Have fun!!</p>',
+			title: 'Welcome!',
+			//subTitle: 'Please use normal things',
+			scope: $scope,
+			buttons: [
+				{ text: 'OK',
+				type: 'button-positive'
+				}
+			]
+		});
+
+		// welcomePopup.then(function(res) {
+			// //console.log('shown');
+		// });
+	}
+	
+	var isFirstStart = $localstorage.get("isFirstStart");
+	console.log(isFirstStart);
+	if (isFirstStart != "false") {
+		$scope.showIntro();
+		$localstorage.set("isFirstStart", false);
+	}
 	
 	$scope.routes = [];
 	$scope.finishedRoutes = [];
