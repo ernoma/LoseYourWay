@@ -60,18 +60,20 @@
 			<h4>You are now at the end of the route.</h4>
 			<h4>Fine achievement!</h4>
 			
+			<h4>Still a few feedback questions</h4>
+			<p>0 = no opinnion, 1 = agree, 2 = somewhat agree, 3 = somewhat disagree, 4 = disagree</p>
+			
 			<div class="list">
 				<div class="item" ng-repeat="item in quantitativeQuestions">
-					<p>{{item.question}}</p>
-					<div class="item range range-energized">
-					  <i class="icon ion-sad-outline"></i>
-					  <input type="range" min="1" max="100" value="{{item.value}}" ng-change="quantitativeQuestionChange($index, item.value)" ng-model="item.value">
-					  <i class="icon ion-happy-outline"></i>
+					<div class="item item-text-wrap">{{item.question}}</div>
+					<div class="range-slider">
+					  <input class="range-slider__range" type="range" min="0" max="4" step="1" value="{{item.value}}" ng-change="quantitativeQuestionChange($index, item.value)" ng-model="item.value">
+					  <span class="range-slider__value">{{item.value}}</span>
 					</div>
 				</div>
 				
 				<div class="item" ng-repeat="item in qualitativeQuestions">
-					<p>{{item.question}}</p>
+					<div class="item item-text-wrap">{{item.question}}</div>
 					<div class="list list-inset">
 						<textarea class="task_textarea" placeholder="{{item.placeholder}}" ng-change="qualitativeQuestionChange($index, item.answer)" ng-model="item.answer" value="{{item.answer}}"></textarea>
 					</div>

@@ -137,19 +137,19 @@ var routeControllers = angular.module('routeControllers', [])
 				quantitativeQuestions : [
 					{
 					question: "I paid more attention to my environment than usually during the walk",
-					value: 50
+					value: 0
 					},
 					{
 					question: "Instructions were interesting",
-					value: 50
+					value: 0
 					},
 					{
 					question: "I liked performing the tasks (taking pictures, creating text) during the walk",
-					value: 50
+					value: 0
 					},
 					{
 					question: "I liked using the app",
-					value: 50
+					value: 0
 					}
 				],
 				qualitativeQuestions: [
@@ -417,6 +417,13 @@ var routeControllers = angular.module('routeControllers', [])
 	
 	$scope.lastPhotoURI = "";
 	$scope.word = "";
+	
+	$scope.quantitativeQuestionOptions = {
+		from: 0,
+		to: 4,
+		step: 1,
+		scale: [0, '|', 1, '|' , 2, '|' , 3, '|' , 4]
+	}
 	
 	var savedRoutes = $scope.savedRoutes.array;
 	
