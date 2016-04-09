@@ -134,10 +134,36 @@ var routeControllers = angular.module('routeControllers', [])
 				routeID: routeID,
 				savedTasks: [],
 				GPSTrace: [],
-				routeSatisfaction: 50,
-				appSatisfaction: 50,
-				uxSatisfaction: 50,
-				suggestions: "",
+				quantitativeQuestions : [
+					{
+					question: "I paid more attention to my environment than usually during the walk",
+					value: 50
+					},
+					{
+					question: "Instructions were interesting",
+					value: 50
+					},
+					{
+					question: "I liked performing the tasks (taking pictures, creating text) during the walk",
+					value: 50
+					},
+					{
+					question: "I liked using the app",
+					value: 50
+					}
+				],
+				qualitativeQuestions: [
+					{
+					question: "Did the walk provide any useful ideas?",
+					answer: "",
+					placeholder: "Ideas to share ..."
+					},
+					{
+					question: "Other feedback or suggestions?",
+					answer: "",
+					placeholder: "Thoughts, suggestions, ..."
+					}
+				],
 				finished: false,
 				name: routeName
 			};
@@ -383,9 +409,10 @@ var routeControllers = angular.module('routeControllers', [])
 	$scope.routeID = $stateParams.routeID;
 	$scope.routeStep = Number($stateParams.step);
 	
-	$scope.routeSatisfaction = 50;
-	$scope.appSatisfaction = 50;
-	$scope.uxSatisfaction = 50;
+	$scope.quantitativeQuestions = [];
+	
+	$scope.qualitativeQuestions = [];
+	
 	$scope.suggestions = "";
 	
 	$scope.lastPhotoURI = "";
@@ -411,15 +438,15 @@ var routeControllers = angular.module('routeControllers', [])
 		}
 		savedRoutes[savedRouteIndex].savedTasks.push(savedTask);
 		$localstorage.setObject("savedRoutes", $scope.savedRoutes);
+		$scope.quantitativeQuestions = savedRoutes[savedRouteIndex].quantitativeQuestions;
+		$scope.qualitativeQuestions = savedRoutes[savedRouteIndex].qualitativeQuestions;
 	}
 	else {
 		$scope.lastPhotoURI = savedRoutes[savedRouteIndex].savedTasks[$scope.routeStep].photoURL;
 		//console.log(savedRoutes[savedRouteIndex].savedTasks[$scope.routeStep].word);
 		$scope.word = savedRoutes[savedRouteIndex].savedTasks[$scope.routeStep].word;
-		$scope.routeSatisfaction = savedRoutes[savedRouteIndex].routeSatisfaction;
-		$scope.appSatisfaction = savedRoutes[savedRouteIndex].appSatisfaction;
-		$scope.uxSatisfaction = savedRoutes[savedRouteIndex].uxSatisfaction;
-		$scope.suggestions = savedRoutes[savedRouteIndex].suggestions;
+		$scope.quantitativeQuestions = savedRoutes[savedRouteIndex].quantitativeQuestions;
+		$scope.qualitativeQuestions = savedRoutes[savedRouteIndex].qualitativeQuestions;
 	}
 
 
@@ -517,23 +544,38 @@ var routeControllers = angular.module('routeControllers', [])
 		$localstorage.setObject("savedRoutes", $scope.savedRoutes);
 	}
 	
-	$scope.routeSatisfactionChange = function(routeSatisfaction) {
-		savedRoutes[savedRouteIndex].routeSatisfaction = routeSatisfaction;
+	$scope.quantitativeQuestionChange = function(index, value) {
+		//console.log(index);
+		//console.log(value);
+		$scope.quantitativeQuestions[index].value = value;
+		savedRoutes[savedRouteIndex].quantitativeQuestions[index].value = value;
 		$localstorage.setObject("savedRoutes", $scope.savedRoutes);
 	}
-	$scope.appSatisfactionChange = function(appSatisfaction) {
-		savedRoutes[savedRouteIndex].appSatisfaction = appSatisfaction;
+	
+	$scope.qualitativeQuestionChange = function(index, answer) {
+		console.log(answer);
+		$scope.qualitativeQuestions[index].answer = answer;
+		savedRoutes[savedRouteIndex].qualitativeQuestions[index].answer = answer;
 		$localstorage.setObject("savedRoutes", $scope.savedRoutes);
 	}
-	$scope.uxSatisfactionChange = function(uxSatisfaction) {
-		savedRoutes[savedRouteIndex].uxSatisfaction = uxSatisfaction;
-		$localstorage.setObject("savedRoutes", $scope.savedRoutes);
-	}
-	$scope.suggestionsChange = function(suggestions) {
-		//console.log("suggestionsChange");
-		savedRoutes[savedRouteIndex].suggestions = suggestions;
-		$localstorage.setObject("savedRoutes", $scope.savedRoutes);
-	}
+	
+	// $scope.routeSatisfactionChange = function(routeSatisfaction) {
+		// savedRoutes[savedRouteIndex].routeSatisfaction = routeSatisfaction;
+		// $localstorage.setObject("savedRoutes", $scope.savedRoutes);
+	// }
+	// $scope.appSatisfactionChange = function(appSatisfaction) {
+		// savedRoutes[savedRouteIndex].appSatisfaction = appSatisfaction;
+		// $localstorage.setObject("savedRoutes", $scope.savedRoutes);
+	// }
+	// $scope.uxSatisfactionChange = function(uxSatisfaction) {
+		// savedRoutes[savedRouteIndex].uxSatisfaction = uxSatisfaction;
+		// $localstorage.setObject("savedRoutes", $scope.savedRoutes);
+	// }
+	// $scope.suggestionsChange = function(suggestions) {
+		// //console.log("suggestionsChange");
+		// savedRoutes[savedRouteIndex].suggestions = suggestions;
+		// $localstorage.setObject("savedRoutes", $scope.savedRoutes);
+	// }
 	
 	$scope.takePicture = function() {
 		Camera.getPicture({

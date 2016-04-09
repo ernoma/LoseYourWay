@@ -36,10 +36,8 @@ var socialControllers = angular.module('socialControllers', [])
 						theme: downloadedRoutes.array[j].theme,
 						GPSTrace: finishedRoutes[i].GPSTrace,
 						savedTasks: finishedRoutes[i].savedTasks,
-						routeSatisfaction: finishedRoutes[i].routeSatisfaction,
-						appSatisfaction: finishedRoutes[i].appSatisfaction,
-						uxSatisfaction: finishedRoutes[i].uxSatisfaction,
-						suggestions: finishedRoutes[i].suggestions,
+						quantitativeQuestions: finishedRoutes[i].quantitativeQuestions,
+						qualitativeQuestions: finishedRoutes[i].qualitativeQuestions,
 						shared: finishedRoutes[i].shared
 				});
 			}
@@ -88,10 +86,8 @@ var socialControllers = angular.module('socialControllers', [])
 						theme: downloadedRoutes.array[j].theme,
 						GPSTrace: finishedRoutes[i].GPSTrace,
 						savedTasks: finishedRoutes[i].savedTasks,
-						routeSatisfaction: finishedRoutes[i].routeSatisfaction,
-						appSatisfaction: finishedRoutes[i].appSatisfaction,
-						uxSatisfaction: finishedRoutes[i].uxSatisfaction,
-						suggestions: finishedRoutes[i].suggestions,
+						quantitativeQuestions: finishedRoutes[i].quantitativeQuestions,
+						qualitativeQuestions: finishedRoutes[i].qualitativeQuestions,
 						shared: finishedRoutes[i].shared
 					});
 				}
