@@ -1,7 +1,7 @@
 
 var socialControllers = angular.module('socialControllers', [])
 
-.controller('SocialCtrl', function($scope, $localstorage, $state, Route, RouteResult) {
+.controller('SocialCtrl', function($scope, $localstorage, $state, Route, RouteResult, ImageUploadService) {
 	
 	var savedRoutes = $localstorage.getObject("savedRoutes");
 	
@@ -119,13 +119,42 @@ var socialControllers = angular.module('socialControllers', [])
 		var savedTasks = [];
 	
 		for (var i = 0; i < route.tasks.length; i++) {
-			savedTasks.push({
-				routeStep: route.tasks[i].routeStep,
-				instructions: route.tasks[i].instructions,
-				type: route.tasks[i].type,
-				photoURL: route.savedTasks[i+1].photoURL, // i+1 because there is an "extra" step in the beginning and end of the savedTasks
-				word: route.savedTasks[i+1].word
-			});
+			
+			if (route.savedTasks[i+1].photoURL != "") {
+				// TODO: upload task photos and change url to routeResult tasks
+				ImageUploadService.uploadImage(route.savedTasks[i+1].photoURL).then( // i+1 because there is an "extra" step in the beginning and end of the savedTasks
+					function(result) {
+						console.log(result);
+						if (result && result.url) {
+							savedTasks.push({
+								routeStep: route.tasks[i].routeStep,
+								instructions: route.tasks[i].instructions,
+								type: route.tasks[i].type,
+								photoURL: result.url, 
+								word: route.savedTasks[i+1].word
+							});
+						}
+					},
+					function(err) {
+						savedTasks.push({
+							routeStep: route.tasks[i].routeStep,
+							instructions: route.tasks[i].instructions,
+							type: route.tasks[i].type,
+							photoURL: "",
+							word: route.savedTasks[i+1].word
+						});
+					}
+				);
+			}
+			else {
+				savedTasks.push({
+					routeStep: route.tasks[i].routeStep,
+					instructions: route.tasks[i].instructions,
+					type: route.tasks[i].type,
+					photoURL: "", 
+					word: route.savedTasks[i+1].word
+				});
+			}
 		}
 		routeResult.savedTasks = savedTasks;
 			
