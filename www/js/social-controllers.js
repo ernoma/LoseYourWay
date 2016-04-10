@@ -36,6 +36,7 @@ var socialControllers = angular.module('socialControllers', [])
 						theme: downloadedRoutes.array[j].theme,
 						GPSTrace: finishedRoutes[i].GPSTrace,
 						savedTasks: finishedRoutes[i].savedTasks,
+						tasks: downloadedRoutes.array[j].tasks,
 						quantitativeQuestions: finishedRoutes[i].quantitativeQuestions,
 						qualitativeQuestions: finishedRoutes[i].qualitativeQuestions,
 						shared: finishedRoutes[i].shared
@@ -86,6 +87,7 @@ var socialControllers = angular.module('socialControllers', [])
 						theme: downloadedRoutes.array[j].theme,
 						GPSTrace: finishedRoutes[i].GPSTrace,
 						savedTasks: finishedRoutes[i].savedTasks,
+						tasks: downloadedRoutes.array[j].tasks,
 						quantitativeQuestions: finishedRoutes[i].quantitativeQuestions,
 						qualitativeQuestions: finishedRoutes[i].qualitativeQuestions,
 						shared: finishedRoutes[i].shared
@@ -102,20 +104,49 @@ var socialControllers = angular.module('socialControllers', [])
 	
 	
 	$scope.shareExperience = function(route) {
-		route.routeID = route.id;
-		route.id = undefined;
+	
+		var routeResult = {
+			routeID: route.id,
+			name: route.name,
+			theme: route.theme,
+			GPSTrace: route.GPSTrace,
+			quantitativeQuestions: route.quantitativeQuestions,
+			qualitativeQuestions: route.qualitativeQuestions
+		};
+	
+		//savedTasks: route.savedTasks,
+	
+		var savedTasks = [];
+	
+		for (var i = 0; i < route.tasks.length; i++) {
+			savedTasks.push({
+				routeStep: route.tasks[i].routeStep,
+				instructions: route.tasks[i].instructions,
+				type: route.tasks[i].type,
+				photoURL: route.savedTasks[i+1].photoURL, // i+1 because there is an "extra" step in the beginning and end of the savedTasks
+				word: route.savedTasks[i+1].word
+			});
+		}
+		routeResult.savedTasks = savedTasks;
 			
-		var newRouteResult = new RouteResult(route);
+			
+		var newRouteResult = new RouteResult(routeResult);
 		var response = newRouteResult.$save(function (data) {
 			console.log(data);
 			
 			var savedRoutes = $localstorage.getObject("savedRoutes");
 	
 			for (var i = 0; i < savedRoutes.array.length; i++) {
-				if (savedRoutes.array[i].routeID == route.routeID) {
+				if (savedRoutes.array[i].routeID == route.id) {
 					savedRoutes.array[i].shared = true;
-					$scope.routes[i].shared = true;
 					$localstorage.setObject("savedRoutes", savedRoutes);
+					break;
+				}
+			}
+			
+			for (var i = 0; i < $scope.routes.length; i++) {
+				if ($scope.routes[i].id == route.id) {
+					$scope.routes[i].shared = true;
 					break;
 				}
 			}
