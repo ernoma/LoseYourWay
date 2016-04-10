@@ -76,7 +76,7 @@ var routeControllers = angular.module('routeControllers', [])
 	//
 	$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 
-		//console.log("State changed: ", toState);
+		console.log("State changed: ", toState);
 		
 		var downloadedRoutes = $localstorage.getObject("downloadedRoutes");
 		var savedRoutes = $localstorage.getObject("savedRoutes");
@@ -425,6 +425,8 @@ var routeControllers = angular.module('routeControllers', [])
 		scale: [0, '|', 1, '|' , 2, '|' , 3, '|' , 4]
 	}
 	
+	var downloadedRoutes = $localstorage.getObject("downloadedRoutes");
+	
 	var savedRoutes = $scope.savedRoutes.array;
 	
 	var savedRouteIndex = null;
@@ -455,9 +457,6 @@ var routeControllers = angular.module('routeControllers', [])
 		$scope.quantitativeQuestions = savedRoutes[savedRouteIndex].quantitativeQuestions;
 		$scope.qualitativeQuestions = savedRoutes[savedRouteIndex].qualitativeQuestions;
 	}
-
-
-	var downloadedRoutes = $localstorage.getObject("downloadedRoutes");
 	
 	for (var i = 0; i < downloadedRoutes.array.length; i++) {
 		if (downloadedRoutes.array[i]._id == $scope.routeID) {
@@ -467,7 +466,7 @@ var routeControllers = angular.module('routeControllers', [])
 			$scope.name = downloadedRoutes.array[i].name;
 			
 			if ($stateParams.step == 0) {
-				$scope.title = "Lose Your Way - " + downloadedRoutes.array[i].name;
+				$scope.title = "Our Way - " + downloadedRoutes.array[i].name;
 			}
 			else if ($stateParams.step <= downloadedRoutes.array[i].tasks.length) {
 				$scope.title = downloadedRoutes.array[i].name + " - Step " + $stateParams.step;
