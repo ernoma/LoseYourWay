@@ -7,7 +7,7 @@ var routeControllers = angular.module('routeControllers', [])
 	
 	$scope.showIntro = function() {
 		var welcomePopup = $ionicPopup.show({
-			template: '<p>Interested to have a bit different look to your surroundings? With LoseYourWay you are able to do this via routes that excite your imagination. You can even create your own routes and share them with others! Have fun!!</p>',
+			template: '<p>Interested to have a bit different look to your surroundings? With Our Way you are able to do this via routes that excite your imagination. You can even create your own routes and share them with others! Have fun!!</p>',
 			title: 'Welcome!',
 			//subTitle: 'Please use normal things',
 			scope: $scope,
@@ -74,38 +74,43 @@ var routeControllers = angular.module('routeControllers', [])
 	//
 	// Make the route that the user has downloaded visible in the route list
 	//
-	$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-
-		console.log("State changed: ", toState);
+	$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {	
+		//console.log("State changed: ", toState);
+		//console.log("State changed: ", toParams);
+		//console.log("State changed: ", fromState);
+		//console.log("State changed: ", fromParams);
 		
-		var downloadedRoutes = $localstorage.getObject("downloadedRoutes");
-		var savedRoutes = $localstorage.getObject("savedRoutes");
+		if (fromParams.routeID != "1") {
 		
-		if (Object.keys(savedRoutes).length === 0 && JSON.stringify(savedRoutes) === JSON.stringify({})) {
-			$scope.routes = downloadedRoutes.array;
-		}
-		else {
-			var finishedRoutes = [];
-			var unfinishedRoutes = [];
-			for (var i = 0; i < downloadedRoutes.array.length; i++) {
-				var foundFinished = false;
-				for (var j = 0; j < savedRoutes.array.length; j++) {
-					if (downloadedRoutes.array[i]._id == savedRoutes.array[j].routeID) {
-						if (savedRoutes.array[j].finished == true) {
-							foundFinished = true;
-							finishedRoutes.push(downloadedRoutes.array[i]);
+			var downloadedRoutes = $localstorage.getObject("downloadedRoutes");
+			var savedRoutes = $localstorage.getObject("savedRoutes");
+			
+			if (Object.keys(savedRoutes).length === 0 && JSON.stringify(savedRoutes) === JSON.stringify({})) {
+				$scope.routes = downloadedRoutes.array;
+			}
+			else {
+				var finishedRoutes = [];
+				var unfinishedRoutes = [];
+				for (var i = 0; i < downloadedRoutes.array.length; i++) {
+					var foundFinished = false;
+					for (var j = 0; j < savedRoutes.array.length; j++) {
+						if (downloadedRoutes.array[i]._id == savedRoutes.array[j].routeID) {
+							if (savedRoutes.array[j].finished == true) {
+								foundFinished = true;
+								finishedRoutes.push(downloadedRoutes.array[i]);
+							}
+							break;
 						}
-						break;
+					}
+					if (!foundFinished) {
+						unfinishedRoutes.push(downloadedRoutes.array[i]);
 					}
 				}
-				if (!foundFinished) {
-					unfinishedRoutes.push(downloadedRoutes.array[i]);
-				}
+				
+				
+				$scope.finishedRoutes = finishedRoutes;
+				$scope.routes = unfinishedRoutes;
 			}
-			
-			
-			$scope.finishedRoutes = finishedRoutes;
-			$scope.routes = unfinishedRoutes;
 		}
 	});
 
