@@ -1,7 +1,7 @@
 
 var socialControllers = angular.module('socialControllers', [])
 
-.controller('SocialCtrl', function($scope, $localstorage, $state, Route, RouteResult, ImageUploadService) {
+.controller('SocialCtrl', function($scope, $localstorage, $state, Route, RouteResult, $q, ImageUploadService) {
 	
 	var savedRoutes = $localstorage.getObject("savedRoutes");
 	
@@ -113,77 +113,69 @@ var socialControllers = angular.module('socialControllers', [])
 			quantitativeQuestions: route.quantitativeQuestions,
 			qualitativeQuestions: route.qualitativeQuestions
 		};
-	
-		//savedTasks: route.savedTasks,
-	
-		var savedTasks = [];
-	
-		for (var i = 0; i < route.tasks.length; i++) {
+		
+		function saveExperienceToServer(array) {
+			routeResult.savedTasks = array;
 			
-			if (route.savedTasks[i+1].photoURL != "") {
-				// TODO: upload task photos and change url to routeResult tasks
-				ImageUploadService.uploadImage(route.savedTasks[i+1].photoURL).then( // i+1 because there is an "extra" step in the beginning and end of the savedTasks
-					function(result) {
-						console.log(result);
-						if (result && result.url) {
-							savedTasks.push({
-								routeStep: route.tasks[i].routeStep,
-								instructions: route.tasks[i].instructions,
-								type: route.tasks[i].type,
-								photoURL: result.url, 
-								word: route.savedTasks[i+1].word
-							});
-						}
-					},
-					function(err) {
-						savedTasks.push({
-							routeStep: route.tasks[i].routeStep,
-							instructions: route.tasks[i].instructions,
-							type: route.tasks[i].type,
-							photoURL: "",
-							word: route.savedTasks[i+1].word
-						});
+			var newRouteResult = new RouteResult(routeResult);
+			var response = newRouteResult.$save(function (data) {
+				console.log(data);
+				
+				var savedRoutes = $localstorage.getObject("savedRoutes");
+		
+				for (var i = 0; i < savedRoutes.array.length; i++) {
+					if (savedRoutes.array[i].routeID == route.id) {
+						savedRoutes.array[i].shared = true;
+						$localstorage.setObject("savedRoutes", savedRoutes);
+						break;
 					}
-				);
-			}
-			else {
-				savedTasks.push({
-					routeStep: route.tasks[i].routeStep,
-					instructions: route.tasks[i].instructions,
-					type: route.tasks[i].type,
-					photoURL: "", 
-					word: route.savedTasks[i+1].word
-				});
-			}
+				}
+				
+				for (var i = 0; i < $scope.routes.length; i++) {
+					if ($scope.routes[i].id == route.id) {
+						$scope.routes[i].shared = true;
+						break;
+					}
+				}
+			});
 		}
-		routeResult.savedTasks = savedTasks;
+		
+		function uploadImage(task) {
 			
+			var deferred = $q.defer();
 			
-		var newRouteResult = new RouteResult(routeResult);
-		var response = newRouteResult.$save(function (data) {
-			console.log(data);
+			ImageUploadService.uploadImage(task.photoURL).then(function(result) {
+				console.log(result);
+				if (result && result.secure_url) {
+					task.photoURL = result.secure_url;
+				}
+				deferred.resolve(result);	
+			});
 			
-			var savedRoutes = $localstorage.getObject("savedRoutes");
+			return deferred;
+		}
 	
-			for (var i = 0; i < savedRoutes.array.length; i++) {
-				if (savedRoutes.array[i].routeID == route.id) {
-					savedRoutes.array[i].shared = true;
-					$localstorage.setObject("savedRoutes", savedRoutes);
-					break;
-				}
-			}
-			
-			for (var i = 0; i < $scope.routes.length; i++) {
-				if ($scope.routes[i].id == route.id) {
-					$scope.routes[i].shared = true;
-					break;
-				}
+		var savedTasks = route.savedTasks.slice(1, route.savedTasks.length-1); // there is an "extra" step in the beginning and end of the savedTasks
+		for (var i = 0; i < route.tasks.length; i++) {
+			savedTasks[i].instructions = route.tasks[i].instructions;
+			savedTasks[i].type = route.tasks[i].type;
+			savedTasks[i].routeStep = route.tasks[i].routeStep;
+		}
+	
+		var defer = $q.defer();
+		var promises = [];
+	
+		angular.forEach(savedTasks, function(task) {
+			if (task.photoURL != "") {
+				promises.push(uploadImage(task).promise);
 			}
 		});
 		
-		// TODO: mark psoted (saved) routeresult as posted after successfully sent to server
+		$q.all(promises).then(function (results) {
+			console.log(results);
+			saveExperienceToServer(savedTasks);
+		});
 		
-		//$state.go("tab.social-detail", {routeID: route.id});
 	}
 	
 	$scope.shareRoute = function(route) {
@@ -229,76 +221,6 @@ var socialControllers = angular.module('socialControllers', [])
 				}
 			}
 		});
-	}
-})
-.controller('SocialDetailCtrl', function($scope, $state, $stateParams, $ionicHistory, $cordovaSocialSharing, $localstorage) {
-	$scope.routeID = $stateParams.routeID;
-	
-	var savedRoutes = $localstorage.getObject("savedRoutes").array;
-	
-	for (var i = 0; i < savedRoutes.length; i++) {
-		if (savedRoutes[i].routeID == $scope.routeID) {
-			$scope.savedRoute = savedRoutes[i];
-			break;
-		}
-	}
-	
-	var downloadedRoutes = $localstorage.getObject("downloadedRoutes");
-	
-	for (var i = 0; i < downloadedRoutes.array.length; i++) {
-		if (downloadedRoutes.array[i]._id == $scope.routeID) {
-			$scope.route = downloadedRoutes.array[i];
-			$scope.title = "Share Postcard - Route: " + $scope.route.name;
-			break;
-		}
-	}
-	
-	$scope.sharables = [];
-	
-	// For testing purposes
-	$scope.sharables.push({
-		photo: "http://res.cloudinary.com/demo/image/upload/sample.png",
-		instructions: "If you were a graffiti, where would you be painted?",
-		include: true
-	});
-	$scope.sharables.push({
-		photo: "http://res.cloudinary.com/demo/image/upload/w_150,h_150,c_fill,r_20/sample.png",
-		instructions: "Walk around until you find a gateway to other dimension.",
-		include: true
-	});
-	$scope.sharables.push({
-		photo: "http://res.cloudinary.com/demo/image/upload/e_sepia/a_10/sample.jpg",
-		instructions: "Let your nose lead you until you see something flying. Take a scenery photograph.",
-		include: true
-	});
-	
-	// for (var i = 0; i < $scope.savedRoute.savedTasks.length; i++) {
-		// if ($scope.savedRoute.savedTasks[i].photoURL != "") {
-			// $scope.sharables.push({
-				// photo: $scope.savedRoute.savedTasks[i].photoURL,
-				// instructions: $scope.route.tasks[i].instructions,
-				// include: true	
-			// });
-		// }
-	// }
-	
-	//
-	// In future choose theme & preview and then will upload to server and return web address... and after that sharing dialog is opened
-	//
-	$scope.createPostcard = function() {
-		$cordovaSocialSharing.share("Check out the experience!", "Lose Your Way Postcard", null, "https://loseyourway.herokuapp.com/sample");
-		
-		$ionicHistory.nextViewOptions({
-			historyRoot: true
-		});
-		$state.go("tab.social");
-	}
-	
-	$scope.cancel = function() {
-		$ionicHistory.nextViewOptions({
-			historyRoot: true
-		});
-		$state.go("tab.social");
 	}
 });
 
