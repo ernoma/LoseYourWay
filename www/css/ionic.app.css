@@ -9798,8 +9798,59 @@ body {
 
 .tabs-calm > .tabs {
   background-color: #48be9c;
-  background-image: none;
+  background-image: none; }
+
+.tab-item {
+  padding-top: 5px;
+  opacity: 1.0; }
+
+.tabs .tab-item .icon.icon_routes {
+  background-repeat: no-repeat;
+  background-position: 50%;
+  height: 60%;
+  background-image: url("../img/routes_30.png");
+  background-size: contain; }
+
+.tabs .tab-item .icon.icon_routes_colour {
+  background-repeat: no-repeat;
+  background-position: 50%;
+  height: 60%;
+  background-image: url("../img/routes_coloured_30.png");
+  background-size: contain; }
+
+.tabs .tab-item .icon.icon_map {
+  background-repeat: no-repeat;
+  background-position: 50%;
+  height: 60%;
+  background-image: url("../img/map_30.png");
+  background-size: contain; }
+
+.tabs .tab-item .icon.icon_map_colour {
+  background-repeat: no-repeat;
+  background-position: 50%;
+  height: 60%;
+  background-image: url("../img/map_coloured_30.png");
+  background-size: contain; }
+
+.tabs .tab-item .icon.icon_sharing {
+  background-repeat: no-repeat;
+  background-position: 50%;
+  height: 60%;
+  background-image: url("../img/sharing_30.png");
+  background-size: contain; }
+
+.tabs .tab-item .icon.icon_sharing_colour {
+  background-repeat: no-repeat;
+  background-position: 50%;
+  height: 60%;
+  background-image: url("../img/sharing_coloured_30.png");
+  background-size: contain; }
+
+.tab-item > .tab-title {
   color: #ffffff; }
+
+.tab-item-active > .tab-title {
+  color: #127678; }
 
 .button-intro {
   border: 0px;
