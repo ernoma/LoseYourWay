@@ -4,33 +4,33 @@
 		<span class="title_our">Our</span> <span class="title_way">way</span>
 	</ion-nav-title>
 	<ion-nav-buttons side="secondary">
-      <button class="button button-dark" ng-click="showIntro()">
-        <i class="icon ion-information"></i> Intro
+      <button class="button-intro" ng-click="showIntro()">
+        <div class="intro_button_div"><div class="intro_button_icon_div">?</div> Intro</div>
       </button>
     </ion-nav-buttons>
   <ion-content>
-  <div class="item item-divider">
+  <div class="item routes_top_item_divider">
 		<div class="row">
 			<div class="col">
-				<button class="button button-dark button-small" ng-click="findRoutes()">
-					<i class="icon ion-search"></i> Find routes online
+				<button class="button button-search button-small" ng-click="findRoutes()">
+					<i class="icon ion-search"></i> Search routes
 				</button>
 			</div>
 			<div class="col right">
-				<button class="button button-dark button-small" ng-click="createRoute()">
+				<button class="button button-create-route button-small" ng-click="createRoute()">
 					<i class="icon ion-compose"></i> Create route
 				</button>
 			</div>
 		</div>
 	</div>
-    <div class="item item-divider">
+    <div class="item routes_item_divider">
 		Routes To Explore
 	</div>
     <ion-list>
-		<ion-item class="item-icon-right" ng-repeat="route in routes" type="item-text-wrap" ng-click="startRoute('{{route._id}}', '{{route.name}}')">
+		<ion-item class="item-icon-right item-text-wrap routes_item" ng-repeat="route in routes" type="item-text-wrap" ng-click="startRoute('{{route._id}}', '{{route.name}}')">
 		{{route.name}}
 		<i class="icon ion-chevron-right icon-accessory"></i>
-		<span class="item-note">
+		<span class="item-note routes_list_note">
 			{{route.theme}} theme
 		</span>
 		</ion-item>
@@ -38,11 +38,11 @@
 	<div class="item" ng-if="routes.length == 0">
 		All done
 	</div>
-	<div class="item item-divider">
+	<div class="item routes_finished_item_divider">
 		Finished Routes
 	</div>
 	<ion-list>
-		<ion-item class="item-icon-right" ng-repeat="route in finishedRoutes" type="item-text-wrap" ng-click="startRoute('{{route._id}}', '{{route.name}}')">
+		<ion-item class="item-icon-right routes_finished_item" ng-repeat="route in finishedRoutes" type="item-text-wrap" ng-click="startRoute('{{route._id}}', '{{route.name}}')">
 		{{route.name}}
 		<i class="icon ion-chevron-right icon-accessory"></i>
 		<span class="item-note">

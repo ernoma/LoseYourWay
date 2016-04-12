@@ -7,12 +7,13 @@ var routeControllers = angular.module('routeControllers', [])
 	
 	$scope.showIntro = function() {
 		var welcomePopup = $ionicPopup.show({
-			template: '<p>Interested to have a bit different look to your surroundings? With Our Way you are able to do this via routes that excite your imagination. You can even create your own routes and share them with others! Have fun!!</p>',
+			template: '<div class="welcome_popup_div">Interested to have a bit different look to your surroundings? With Our Way you are able to do this via routes that excite your imagination. You can even create your own routes and share them with others! Have fun!!</div>',
 			title: 'Welcome!',
+			cssClass: 'welcome_popup',
 			//subTitle: 'Please use normal things',
 			scope: $scope,
 			buttons: [
-				{ text: 'OK',
+				{ text: '<span class="welcome_popup_button_text">OK</span>',
 				type: 'button-positive'
 				}
 			]
