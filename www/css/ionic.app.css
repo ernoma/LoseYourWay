@@ -9828,6 +9828,22 @@ body {
   background-color: #52c8a6;
   color: white; }
 
+.button_map {
+  background-color: #2e866d !important;
+  color: white !important;
+  height: 30px !important;
+  min-height: 25px !important;
+  line-height: 24px !important; }
+
+.button_map_span {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle; }
+
+.button_map_icon {
+  vertical-align: middle;
+  max-height: 25px; }
+
 .routes_top_item_divider {
   background-color: white;
   padding: 0px; }
