@@ -57,35 +57,30 @@
 			</div>
 		</div>
 		<div class="col text-center" ng-if="routeStep > steps.length">
-			<h4>You are now at the end of the route.</h4>
-			<h4>Fine achievement!</h4>
+			<h4 class="route_finish_title">Congratulations!</h4>
+			<img src="img/route_finished.png"/>
+			<h4>You are now at the end of the route!</h4>
 			
-			<h4>Still a few feedback questions</h4>
-			<p>0 = no opinnion, 1 = agree, 2 = somewhat agree, 3 = somewhat disagree, 4 = disagree</p>
-			
-			<div class="list">
-				<div class="item" ng-repeat="item in quantitativeQuestions">
-					<div class="item item-text-wrap">{{item.question}}</div>
-					<div class="item range">
-					  <i class="icon ion-happy-outline"></i>
+			<div class="list route_finish_question_list">
+				<div class="item route_finish_item" ng-repeat="item in quantitativeQuestions">
+					<div class="route_finish_question_text_div">{{item.question}}</div>
+					<div class="item range route_finish_range_div">
+					  <img src="img/sad.png"/>
 					  <input type="range" min="1" max="100" value="{{item.value}}" ng-change="quantitativeQuestionChange($index, item.value)" ng-model="item.value">
-					  <i class="icon ion-sad-outline"></i>
+					  <img src="img/happy.png"/>
 					</div>
 				</div>
-				<div class="item" ng-repeat="item in qualitativeQuestions">
-					<div class="item item-text-wrap">{{item.question}}</div>
-					<div class="list list-inset">
-						<textarea class="task_textarea" placeholder="{{item.placeholder}}" ng-change="qualitativeQuestionChange($index, item.answer)" ng-model="item.answer" value="{{item.answer}}"></textarea>
-					</div>
+				<div class="item route_finish_item" ng-repeat="item in qualitativeQuestions">
+					<div class="route_finish_question_text_div">{{item.question}}</div>
+					<textarea class="task_textarea route_finish_text_area" placeholder="{{item.placeholder}}" ng-change="qualitativeQuestionChange($index, item.answer)" ng-model="item.answer" value="{{item.answer}}"></textarea>
 				</div>
 			</div>
 			
-			<br>
 			<!--<button class="button button-large icon-left ion-share button-royal" ng-click="shareExperience()">
 				Share Route & Feedback
 			</button>-->
 			<div class="padding-bottom">
-			<button class="button icon-left ion-checkmark-round button-royal" ng-click="finishRoute()">
+			<button class="button button-block button-positive route_finish_done_button" ng-click="finishRoute()">
 				Done
 			</button>
 			</div>
