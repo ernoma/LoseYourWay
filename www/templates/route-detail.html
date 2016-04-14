@@ -66,12 +66,12 @@
 			<div class="list">
 				<div class="item" ng-repeat="item in quantitativeQuestions">
 					<div class="item item-text-wrap">{{item.question}}</div>
-					<div class="range-slider">
-					  <input class="range-slider__range" type="range" min="0" max="4" step="1" value="{{item.value}}" ng-change="quantitativeQuestionChange($index, item.value)" ng-model="item.value">
-					  <span class="range-slider__value">{{item.value}}</span>
+					<div class="item range">
+					  <i class="icon ion-happy-outline"></i>
+					  <input type="range" min="1" max="100" value="{{item.value}}" ng-change="quantitativeQuestionChange($index, item.value)" ng-model="item.value">
+					  <i class="icon ion-sad-outline"></i>
 					</div>
 				</div>
-				
 				<div class="item" ng-repeat="item in qualitativeQuestions">
 					<div class="item item-text-wrap">{{item.question}}</div>
 					<div class="list list-inset">

@@ -142,30 +142,13 @@ var routeControllers = angular.module('routeControllers', [])
 				GPSTrace: [],
 				quantitativeQuestions : [
 					{
-					question: "I paid more attention to my environment than usually during the walk",
-					value: 0
-					},
-					{
-					question: "Instructions were interesting",
-					value: 0
-					},
-					{
-					question: "I liked performing the tasks (taking pictures, creating text) during the walk",
-					value: 0
-					},
-					{
-					question: "I liked using the app",
-					value: 0
+					question: "How did you like the route?",
+					value: 50
 					}
 				],
 				qualitativeQuestions: [
 					{
-					question: "Did the walk provide any useful ideas?",
-					answer: "",
-					placeholder: "Ideas to share ..."
-					},
-					{
-					question: "Other feedback or suggestions?",
+					question: "We would like to hear your thoughts!",
 					answer: "",
 					placeholder: "Thoughts, suggestions, ..."
 					}
