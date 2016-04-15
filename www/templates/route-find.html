@@ -15,36 +15,34 @@
 			<span class="title_our">Our</span> <span class="title_way">way</span>
 		</ion-nav-title>
 	  <ion-content class="padding">
-	  <div class="list list-inset">
-		  <label class="item item-input">
-			<i class="icon ion-search placeholder-icon"></i>
-			<input type="text" placeholder="Search by name" ng-model="findFilter">
-		  </label>
-	  </div>
-	  <div class="list">
-		  <label class="item item-input item-select">
-			<div class="input-label">
-			  Sort by
-			</div>
-			<select ng-model="orderProp">
-			  <option value="name">Name</option>
-			  <option value="theme">Theme</option>
-			  <option value="-created">Newest</option>
-			</select>
-		  </label>
-	  </div>
-	  <div class="item item-divider">
+	  <label class="item item-input search_routes_by_name_label">
+		<i class="icon ion-search placeholder-icon search_routes_page_search_icon"></i>
+		<input type="text" placeholder="Search by name" ng-model="findFilter">
+	  </label>
+	  <label class="item item-input item-select search_routes_sort_by_label">
+		<div class="input-label">
+		  Sort by
+		</div>
+		<select class="search_routes_sort_by_select" ng-model="orderProp">
+		  <option value="name">Name</option>
+		  <option value="theme">Theme</option>
+		  <option value="-created">Newest</option>
+		</select>
+	  </label>
+	  <div class="item item-divider search_routes_available_list_item_divider">
 		Available Routes
 	  </div>
-	  <ion-list>
-		<ion-item class="item-icon-right" ng-repeat="route in routes | filter:findFilter | orderBy:orderProp" type="item-text-wrap" ng-click="download(route)">
-		{{route.name}}
-		<i class="icon ion-ios-download-outline "></i>
-		<span class="item-note">
-			{{route.theme}} theme
-		</span>
-		</ion-item>
-	  </ion-list>
+	  <div class="item">
+		  <ion-list>
+			<ion-item class="item-icon-right" ng-repeat="route in routes | filter:findFilter | orderBy:orderProp" type="item-text-wrap" ng-click="download(route)">
+			{{route.name}}
+			<i class="icon ion-ios-download-outline "></i>
+			<span class="item-note">
+				{{route.theme}} theme
+			</span>
+			</ion-item>
+		  </ion-list>
+	  </div>
 	  </ion-content>
 	</ion-view>
 <!--<ion-nav-view>-->

@@ -432,6 +432,47 @@ body {
 }
 
 //
+// Search routes
+//
+
+.search_routes_by_name_label {
+	border: 0px;
+	background: #ebebeb;
+	width: 90%;
+	margin-top: 15px;
+	margin-left: auto; 
+	margin-right: auto;
+	margin-bottom: 10px;
+}
+
+.search_routes_page_search_icon:before {
+	font-size: 30px !important;
+}
+
+.search_routes_sort_by_label {
+	border: 0px;
+	background: #ebebeb;
+	width: 90%;
+	margin-left: auto; 
+	margin-right: auto;
+	margin-bottom: 20px;
+}
+
+.search_routes_sort_by_select {
+	background: #ebebeb !important;
+}
+
+.search_routes_available_list_item_divider {
+	background-color: #62c6e8;
+	color: white;
+	padding: 10px;
+	border-bottom: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	text-align: center;
+}
+
+//
 // Texts
 //
 
