@@ -17,9 +17,10 @@
 	  <ion-content class="padding">
 	  <div class="row">
 		<div class="col text-center" ng-if="routeStep == 0">
-			<h4>Welcome to {{name}} Route!</h4>
+			<h4 class="route_start_normal_text">Welcome to</h4>
+			<h4 class="route_start_name_text">{{name}} Route!</h4>
 			
-			<a class="button button-block button-royal" ng-click="nextStep()">
+			<a class="button button-block button-positive" ng-click="nextStep()">
 				Let's begin!
 			</a>
 		</div>
