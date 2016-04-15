@@ -10109,3 +10109,72 @@ body {
 
 .route_finish_done_button {
   font-size: x-large; }
+
+.sharing_page_private_routes_list_item_divider {
+  background-color: #24bcbd;
+  color: white;
+  padding: 10px;
+  border-bottom: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-top: 10px; }
+
+.sharing_page_private_route_item {
+  background: #d7fff4;
+  width: 96%;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  border: 0px;
+  margin-top: 10px; }
+
+.share_private_button {
+  margin-top: 10px;
+  background: #24bcbd;
+  color: #fff;
+  width: 100%;
+  float: center; }
+
+.sharing_page_finished_routes_list_item_divider {
+  background-color: #2a819f;
+  color: white;
+  padding: 10px;
+  border-bottom: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  margin-top: 20px; }
+
+.sharing_page_finished_routes_list_div {
+  background: #dddddd; }
+
+.sharing_page_finished_routes_item {
+  margin: 10px 20px 10px 20px;
+  background: #efefef; }
+
+.share_finished_route_button {
+  margin-top: 10px;
+  background: #2a819f;
+  color: #fff;
+  width: 100%;
+  float: center; }
+
+.sharing_page_note_dark_text {
+  color: #000; }
+
+.sharing_page_route_note {
+  text-align: left;
+  font-size: small;
+  color: #747474; }
+
+.share_button_img_div {
+  display: inline-block;
+  height: 42px;
+  vertical-align: middle; }
+
+.share_page_button_img {
+  width: 28px;
+  vertical-align: middle;
+  margin-right: 5px; }
+
+.share_button_text_div {
+  display: inline;
+  vertical-align: middle; }

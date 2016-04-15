@@ -4,20 +4,23 @@
 	</ion-nav-title>
 	<ion-content>
 		<div ng-if="privateRoutes">
-			<div class="item item-divider">
+			<div class="item item-divider sharing_page_private_routes_list_item_divider">
 				Your Private Routes
 			</div>
-			<div class="list card">
-				<ion-item ng-repeat="route in privateRoutes" class="item-text-wrap">
+			<div class="list">
+				<ion-item ng-repeat="route in privateRoutes" class="item-text-wrap sharing_page_private_route_item">
 					<h2>{{route.name}}</h2>
-					<span class="item-note">
-						{{route.theme}} theme
-					</span>
+					<div class="sharing_page_route_note">
+						Theme: <span class="sharing_page_note_dark_text">{{route.theme}}</span>
+					</div>
 					<!--<button class="button button-block icon ion-compose button-calm" ng-click="editRoute(route)">
 						Edit
 					</button>-->
-					<button class="button button-block icon ion-share button-positive" ng-click="shareRoute(route)">
-						Share to others
+					<button class="button share_private_button" ng-click="shareRoute(route)">
+						<div class="share_button_img_div">
+							<img src="img/share.png" class="share_page_button_img">
+						</div>
+						<div class="share_button_text_div">Share to others</div>
 					</button>
 				</ion-item>
 				<div class="item" ng-if="privateRoutes.length == 0">
@@ -25,17 +28,23 @@
 				</div>
 			</div>
 		</div>
-		<div class="item item-divider">
+		<div class="item item-divider sharing_page_finished_routes_list_item_divider">
 			Finished Routes
 		</div>
-		<div class="list card">
-			<ion-item ng-repeat="route in routes">
+		<div class="list sharing_page_finished_routes_list_div">
+			<ion-item class="sharing_page_finished_routes_item" ng-repeat="route in routes">
 				<h2>{{route.name}}</h2>
-				<span class="item-note">
-					{{route.theme}} theme
-				</span>
-				<button class="button button-block icon ion-share button-royal" ng-click="shareExperience(route)" ng-if="route.shared == undefined">
-					Share Route & Feedback
+				<div class="sharing_page_route_note">
+					Review: <span class="sharing_page_note_dark_text">{{route.quantitativeQuestions[0].value}} points</span>
+				</div>
+				<div class="sharing_page_route_note">
+					Theme: <span class="sharing_page_note_dark_text">{{route.theme}}</span>
+				</div>
+				<button class="button share_finished_route_button" ng-click="shareExperience(route)" ng-if="route.shared == undefined">
+					<div class="share_button_img_div">
+						<img src="img/share_finished.png" class="share_page_button_img">
+					</div>
+					<div class="share_button_text_div">Share Route & Feedback</div>
 				</button>
 				<div class="item item-text-wrap" ng-if="route.shared != undefined">
 					Route & feedback has been shared
