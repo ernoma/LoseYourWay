@@ -9948,6 +9948,108 @@ body {
   font-weight: bold;
   margin-bottom: 40px; }
 
+.route_task_page_top_div {
+  width: 100%; }
+
+.route_task_page_top_step_name_span {
+  font-size: large; }
+
+.route_task_page_top_step_span {
+  position: absolute;
+  right: 20px;
+  color: #cacaca; }
+
+.route_task_page_top_progress {
+  margin-top: 11px;
+  margin-bottom: 26px;
+  background: #5d92a0;
+  height: 17px;
+  border-radius: 10px; }
+
+.route_task_page_top_progress_step {
+  margin-top: 11px;
+  margin-bottom: 26px;
+  background: #6bd8ff;
+  height: 17px;
+  border-radius: 10px; }
+
+.route_task_page_top_task_number_div {
+  color: #25bdc0;
+  font-weight: bold;
+  font-size: x-large;
+  margin-bottom: 25px; }
+
+.route_task_page_step_instructions {
+  margin-top: 40px;
+  font-size: large;
+  color: #747474; }
+
+.route_task_page_next_step_button {
+  margin-top: 60px !important; }
+
+.route_task_page_arrow:before {
+  font-size: 50px !important; }
+
+.take_photo_button {
+  margin-top: 40px;
+  margin-bottom: -20px;
+  background: #7ad1ed;
+  color: #fff;
+  width: 85%;
+  float: center; }
+
+.take_photo_button_img_div {
+  display: inline-block;
+  height: 53px;
+  vertical-align: middle; }
+
+.take_photo_button_img {
+  width: 53px; }
+
+.take_photo_button_text_div {
+  display: inline;
+  vertical-align: middle; }
+
+.write_word_input_wrapper {
+  margin-top: 40px;
+  margin-bottom: -20px;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto; }
+
+.write_word_input {
+  border-radius: 10px;
+  border: 0px;
+  background: #ebebeb; }
+
+.cyan_text {
+  color: #4bbea1;
+  font-size: large; }
+
+.pink_text {
+  color: #ff86a9;
+  font-size: large; }
+
+.green_text {
+  color: #6adf52;
+  font-size: large; }
+
+.light_blue_text {
+  color: #7ad1ed;
+  font-size: large; }
+
+.aquamarine_text {
+  color: #57ecc2;
+  font-size: large; }
+
+.black_text {
+  color: #000;
+  font-size: large; }
+
+.dark_cyan_text {
+  color: #32826e;
+  font-size: large; }
+
 .route_finish_title {
   color: #24bcbd;
   font-weight: bold;

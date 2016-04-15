@@ -25,29 +25,54 @@
 			</a>
 		</div>
 		<div class="col text-center" ng-repeat="step in steps" ng-if="routeStep == step.routeStep">
-			<h4>{{step.instructions}}</h4>
+			<div class="route_task_page_top_div">
+				<div><span class="route_task_page_top_step_name_span">{{name}}</span><span class="route_task_page_top_step_span">Step {{$index + 1}}/{{steps.length}}</span></div>
+				<div class="route_task_page_top_progress">
+					<div class="route_task_page_top_progress_step" style="width: {{($index + 1) / steps.length * 100}}%;"></div>
+				</div>
+				<div class="route_task_page_top_task_number_div">Task {{$index + 1}}</div>
+			</div>
 			
+			<div ng-if="step.type == 'move'">
+				<p class="pink_text">Move</p>
+				<img src="img/move.png">
+				<div class="route_task_page_step_instructions">{{step.instructions}}</div>			
+			</div>
 			<div ng-if="step.type == 'photo'">
-				<button class="button icon-left ion-camera button-dark" ng-click="takePicture()">
-					Take Photo
+				<p class="light_blue_text">Take photo</p>
+				<img src="img/photo.png">
+				<div class="route_task_page_step_instructions">{{step.instructions}}</div>
+				<button class="button take_photo_button" ng-click="takePicture()">
+					<div class="take_photo_button_img_div">
+						<img src="img/photo.png" class="take_photo_button_img">
+					</div>
+					<div class="take_photo_button_text_div">Take photo</div>
 				</button>
 			</div>
 			
-			<label class="item item-input" ng-if="step.type == 'word'">
-				<input type="text" placeholder="Type Word" ng-change="wordChange(word)" ng-model="word">
-			</label>
+			
+			<div ng-if="step.type == 'word'">
+				<p class="green_text">Write Word</p>
+				<img src="img/write.png">
+				<div class="route_task_page_step_instructions">{{step.instructions}}</div>
+				<label class="item-input-wrapper write_word_input_wrapper"><input type="text" class="write_word_input" placeholder="Type word" ng-change="wordChange(word)" ng-model="word"></label>
+			</div>
 			
 			<div ng-if="step.type == 'photoword'">
-				<label class="item item-input padding-bottom"> 
-					<input type="text" placeholder="Type Word" ng-change="wordChange(word)" ng-model="word">
-				</label>
-				<button class="button icon-left ion-camera button-dark marginextra-top" ng-click="takePicture()">
-					Take Photo
+				<p class="aquamarine_text">Take photo and write word</p>
+				<img src="img/writephoto.png">
+				<div class="route_task_page_step_instructions">{{step.instructions}}</div>
+				<button class="button take_photo_button" ng-click="takePicture()">
+					<div class="take_photo_button_img_div">
+						<img src="img/photo.png" class="take_photo_button_img">
+					</div>
+					<div class="take_photo_button_text_div">Take photo</div>
 				</button>
+				<label class="item-input-wrapper write_word_input_wrapper"><input type="text" class="write_word_input" placeholder="Type word" ng-change="wordChange(word)" ng-model="word"></label>
 			</div>
 			
-			<a class="button button-block button-royal" ng-click="nextStep()">
-				<i class="icon ion-arrow-right-a"></i>
+			<a class="button button-block button-positive route_task_page_next_step_button" ng-click="nextStep()">
+				<i class="icon ion-ios-arrow-thin-right route_task_page_arrow"></i>
 			</a>
 			
 			<div ng-if="step.type == 'photo'">
