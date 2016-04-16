@@ -5,52 +5,51 @@
 	</ion-nav-title>
 	  <ion-content>
 		<form name="createRouteForm" novalidate>
-			<div class="list padding">
-				<ion-item ng-repeat="task in route.tasks">
-					<div class="item item-divider item-button-right">
+			<div class="list padding create_route_page_task_list_div">
+				<ion-item class="create_route_page_task_item" ng-repeat="task in route.tasks">
+					<div class="item item-divider create_route_page_task_item_title">
 						Task {{task.routeStep}}
-						<button class="button button-clear">
-						  <!--<i class="icon ion-close-circled"></i>
-						</button>-->
 					</div>
-					<label class="item item-input item-select">
+					<label class="item item-input item-select create_route_page_task_item_type_label">
 						<div class="input-label">
 						  Task type
 						</div>
-						<select ng-model="task.type">
+						<select class="create_route_page_task_item_type_select" ng-model="task.type">
 						  <option value="move">Move</option>
 						  <option value="photo">Take photo</option>
 						  <option value="word">Write word</option>
 						  <option value="photoword">Take photo and write word</option>
 						</select>
 					</label>
-					<div class="item">
-						<textarea class="task_textarea" placeholder="Instructions shown to the user"  ng-model="task.instructions" value="{{task.instructions}}"></textarea>
-					</div>
-					<div class="item">
+					<div class="item create_route_page_instructions_textarea_div">
+						<textarea class="task_textarea create_route_page_instructions_textarea" placeholder="Instructions shown to the user"  ng-model="task.instructions" value="{{task.instructions}}"></textarea>
 						<button class="button button-block button-assertive icon ion-close-circled" ng-click="showDeleteConfirm($index)">
 							Delete task
 						</button>
-						<button class="button button-block button-energized icon ion-chevron-up" ng-click="moveTaskUp($index)" ng-disabled="$index == 0">
-							Move task up
-						</button>
-						<button class="button button-block button-energized icon ion-chevron-down" ng-click="moveTaskDown($index)"  ng-disabled="$index == route.tasks.length - 1">
-							Move task down
-						</button>
+						<div class="button-bar">
+							<button class="button icon ion-chevron-up create_route_page_move_task_button create_route_page_move_task_button_left" ng-click="moveTaskUp($index)" ng-disabled="$index == 0">
+								Move up
+							</button>
+							<button class="button icon ion-chevron-down create_route_page_move_task_button" ng-click="moveTaskDown($index)"  ng-disabled="$index == route.tasks.length - 1">
+								Move down
+							</button>
+						</div>
 					</div>
 				</ion-item>
-				<button class="button button-block button-calm" ng-click="addTask()">
-				  Add other task
+			</div>
+			<div class="padding create_route_page_bottom_part_div">
+				<button class="button button-block button-positive" ng-click="addTask()">
+				  Add another task
 				</button>
-				<label class="item item-input">
+				<label class="item item-input create_route_page_route_name_label">
 					<span class="input-label">Route name</span>
-					<input type="text" placeholder="Lose Your Way..." ng-model="route.name" name="name" required>
+					<input class="create_route_page_route_name_input" type="text" placeholder="Type a route name" ng-model="route.name" name="name" required>
 				</label>
-				<label class="item item-input item-select">
+				<label class="item item-input item-select create_route_page_route_theme_label">
 					<div class="input-label">
-					  Choose theme
+					  Theme
 					</div>
-					<select ng-model="route.theme">
+					<select class="create_route_page_route_theme_select" ng-model="route.theme">
 					  <option value="Architecture and urban design">Architecture and urban design</option>
 					  <option value="eSkills">eSkills</option>
 					  <option value="Mobility and transport">Mobility and transport</option>
@@ -64,11 +63,11 @@
 					<p ng-show="createRouteForm.name.$error.required">* Route name is required</p>
 				</div>-->
 				
-				<button class="button button-block button-positive" ng-click="saveRoute()" ng-disabled="createRouteForm.$invalid">
+				<button class="button button-block create_route_page_save_button" ng-click="saveRoute()" ng-disabled="createRouteForm.$invalid">
 				  Save to phone
 				</button>
-				<button class="button button-block button-positive" ng-click="shareRoute()" ng-disabled="createRouteForm.$invalid">
-				  Save & share to others
+				<button class="button button-block create_route_page_save_button" ng-click="shareRoute()" ng-disabled="createRouteForm.$invalid">
+				  Save & share
 				</button>
 			</div>
 		</form>
