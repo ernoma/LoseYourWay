@@ -42,14 +42,20 @@ var mapControllers = angular.module('mapControllers', [])
         };
 	
 	angular.extend($scope, {
-			tiles: tilesDict.openstreetmap
+			//tiles: tilesDict.openstreetmap
+			tiles: tilesDict.amsterdam
 	});
 	
 	$scope.goTo = function() {
+		// $scope.map.center  = {
+			  // lat : 61.5,
+			  // lng : 23.766667,
+			  // zoom : 12
+			// };
 		$scope.map.center  = {
-			  lat : 61.5,
-			  lng : 23.766667,
-			  zoom : 12
+			  lat : 52.3707,
+			  lng : 4.9004,
+			  zoom : 13
 			};
 	}
 	
@@ -69,7 +75,7 @@ var mapControllers = angular.module('mapControllers', [])
 	}
 	
 	$scope.showOnlineMap = function() {
-		$scope.tiles = tilesDict.openstreetmap;
+		//$scope.tiles = tilesDict.openstreetmap;
 		$scope.locate();
 	}
 	
