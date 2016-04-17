@@ -173,7 +173,7 @@ var routeControllers = angular.module('routeControllers', [])
 	}
 })
 
-.controller('RouteCreateCtrl', function($scope, $state, $localstorage, $ionicHistory, $ionicPopup, Route) {
+.controller('RouteCreateCtrl', function($scope, $state, $localstorage, $ionicHistory, $ionicPopup, $ionicScrollDelegate, Route) {
 	$scope.title = "Create Route";
 	
 	$scope.route = {
@@ -215,6 +215,7 @@ var routeControllers = angular.module('routeControllers', [])
 	   confirmPopup.then(function(res) {
 		 if(res) {
 		   $scope.deleteTask(index);
+		   $ionicScrollDelegate.scrollTop();
 		 } else {
 		   // nothing to do
 		 }
