@@ -9920,10 +9920,13 @@ body {
 .routes_item {
   border-top: 0px;
   border-bottom: 1px;
+  border-left: 0px;
+  border-right: 0px;
   border-style: solid;
   border-color: #636363;
   margin-top: 0px;
-  margin-bottom: 0px; }
+  margin-bottom: 0px;
+  overflow: hidden; }
 
 .routes_list_note {
   text-overflow: clip;
