@@ -43,6 +43,11 @@ $popup-button-border-radius:      8px !default;
 $popup-button-line-height:        20px !default;
 $popup-button-min-height:         45px !default;
 
+.popup-body {
+	color: #fff;
+	margin: 0px 20px 0px 20px;
+	text-align: justify;
+}
 
 
 // The path for our ionicons font files, relative to the built CSS in www/css
