@@ -8,8 +8,9 @@
 
 var loseYourWayApp = angular.module('starter', ['ionic', 'ngResource', 'leaflet-directive', 'ngCordova', 'routeControllers', 'mapControllers', 'socialControllers', 'loseYourWayServices'])
 
-.config(function($compileProvider){
-  $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
+.config(function($compileProvider, $ionicConfigProvider){
+	$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
+	$ionicConfigProvider.tabs.position('bottom');
 })
 
 loseYourWayApp.run(function($ionicPlatform) {

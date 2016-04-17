@@ -35,12 +35,12 @@
 			
 			<div ng-if="step.type == 'move'">
 				<p class="pink_text">Move</p>
-				<img src="img/move.png">
+				<img class="route_task_page_step_image" src="img/move.png">
 				<div class="route_task_page_step_instructions">{{step.instructions}}</div>			
 			</div>
 			<div ng-if="step.type == 'photo'">
 				<p class="light_blue_text">Take photo</p>
-				<img src="img/photo.png">
+				<img class="route_task_page_step_image" src="img/photo.png">
 				<div class="route_task_page_step_instructions">{{step.instructions}}</div>
 				<button class="button take_photo_button" ng-click="takePicture()">
 					<div class="take_photo_button_img_div">
@@ -53,14 +53,14 @@
 			
 			<div ng-if="step.type == 'word'">
 				<p class="green_text">Write Word</p>
-				<img src="img/write.png">
+				<img class="route_task_page_step_image" src="img/write.png">
 				<div class="route_task_page_step_instructions">{{step.instructions}}</div>
 				<label class="item-input-wrapper write_word_input_wrapper"><input type="text" class="write_word_input" placeholder="Type word" ng-change="wordChange(word)" ng-model="word"></label>
 			</div>
 			
 			<div ng-if="step.type == 'photoword'">
 				<p class="aquamarine_text">Take photo and write word</p>
-				<img src="img/writephoto.png">
+				<img class="route_task_page_step_image" src="img/writephoto.png">
 				<div class="route_task_page_step_instructions">{{step.instructions}}</div>
 				<button class="button take_photo_button" ng-click="takePicture()">
 					<div class="take_photo_button_img_div">
@@ -77,14 +77,14 @@
 			
 			<div ng-if="step.type == 'photo'">
 				<div class="item item-image">
-					<img ng-src="{{lastPhotoURI}}" style="max-width: 100%">
+					<img ng-src="{{lastPhotoURI}}" style="max-width: 320px">
 				</div>
 				<!--<p>{{lastPhotoURI}}</p>-->
 			</div>
 		</div>
 		<div class="col text-center" ng-if="routeStep > steps.length">
 			<h4 class="route_finish_title">Congratulations!</h4>
-			<img src="img/route_finished.png"/>
+			<img class="route_task_page_step_image" src="img/route_finished.png"/>
 			<h4>You are now at the end of the route!</h4>
 			
 			<div class="list route_finish_question_list">

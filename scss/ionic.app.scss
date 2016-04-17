@@ -31,7 +31,7 @@ $button-border-width:             1px !default;
 // Popups
 //
 
-$popup-width:                     225px !default;
+$popup-width:                     250px !default;
 $popup-enter-animation:           superScaleIn !default;
 $popup-enter-animation-duration:  0.2s !default;
 $popup-leave-animation-duration:  0.1s !default;
@@ -383,14 +383,18 @@ body {
 	margin-bottom: 25px;
 }
 
+.route_task_page_step_image {
+	width: 100px;
+}
+
 .route_task_page_step_instructions {
-	margin-top: 40px;
+	margin-top: 10px;
 	font-size: large;
 	color: #747474;
 }
 
 .route_task_page_next_step_button {
-	margin-top: 60px !important;
+	margin-top: 40px !important;
 }
 
 .route_task_page_arrow:before {
@@ -398,7 +402,7 @@ body {
 }
 
 .take_photo_button {
-	margin-top: 40px;
+	margin-top: 20px;
 	margin-bottom: -20px;
 	background: #7ad1ed;
 	color: #fff;

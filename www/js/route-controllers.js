@@ -576,8 +576,6 @@ var routeControllers = angular.module('routeControllers', [])
 	$scope.takePicture = function() {
 		Camera.getPicture({
 		  quality: 75,
-		  targetWidth: 320,
-		  targetHeight: 320,
 		  correctOrientation: true,
 		  saveToPhotoAlbum: true
 		}).then(function(imageURI) {
